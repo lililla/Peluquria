@@ -1,0 +1,70 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gracias por registrarse en nuestra web</title>
+</head>
+
+<body style="margin:0px; padding:0px;">
+	<table width="600" border="0" align="center" cellpadding="5px">
+	  <tbody>
+		<tr>
+		  <td style="background-color: #117ac9; height: 250px;"><img style="padding-top:5px;" src="https://lh3.googleusercontent.com/-FLLVi-418wg/AAAAAAAAAAI/AAAAAAAAAA0/YrrSVJPR3B8/s640/photo.jpg" border="0" /></td>
+		</tr>
+		<tr>
+		  <td align="center"><table width="550" border="0" cellpadding="20px;">
+		    <tbody>
+		      <tr>
+		        <td><table width="100%" border="0">
+		          <tbody>
+		            <tr>
+		              <td width="9%"><img src="https://missborderlike.es/plantilla_correos/mb/ico_verify.png" border="0" /></td>
+		              <td width="91%"><span style="font-size: 16px; color: #000000; font-weight: bold; ">¡Gracias <?php print($usuario);?>!</span></td>
+	                </tr>
+	              </tbody>
+		          </table>
+	         </td>
+	          </tr>
+		      <tr>
+		        <td style="font-size: 21px; color: #000000; font-weight: bold; text-align: center;">Tu registro se ha efectuado con éxito, para finalizar su registro sólo deberá confirmarnos su email.</td>
+	          </tr>
+		      <tr>
+		        <td align="center"><a href="<?php echo site_url() ?>/Gestion/activacion?var1=<?php echo $usuario;?>&var2=<?php echo $uidd;?>&var3=<?php echo $password;?>"><img style="width: 294px;" src="https://missborderlike.es/plantilla_correos/mb/bt_ok.png" border="0" /></a></td>
+	          </tr>
+		      <tr>
+		        <td><table width="95%" border="0" cellpadding="10">
+		          <tbody>
+		            <tr>
+		              <td width="11%"><img src="https://missborderlike.es/plantilla_correos/mb/ico_list.png" border="0" /></td>
+		              <td width="89%" style="font-size: 19px; color: #c9c9c9;">Usted con su registro dispondrá de acceso directo a nuestra web online.</td>
+	                </tr>
+		            <tr>
+		              <td><img src="https://missborderlike.es/plantilla_correos/mb/ico_list.png" border="0" /></td>
+		              <td style="font-size: 19px; color: #c9c9c9;"> Disfrutará de nuestras citas online rapida y segura.</td>
+	                </tr>
+		            <tr>
+		              <td><img src="https://missborderlike.es/plantilla_correos/mb/ico_list.png" border="0" /></td>
+		              <td style="font-size: 19px; color: #c9c9c9;"> Mimaremos cada uno de sus consultas de forma única y exclusiva</td>
+	                </tr>
+	              </tbody>
+	            </table></td>
+	          </tr>
+		      <tr>
+		        <td>&nbsp;</td>
+	          </tr>
+		      <tr>
+		        <td>&nbsp;</td>
+	          </tr>
+	        </tbody>
+	      </table></td>
+		</tr>
+		<tr>
+		  <td>&nbsp;</td>
+		</tr>
+	  </tbody>
+	</table>
+</body>
+</html>
