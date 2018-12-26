@@ -8,6 +8,8 @@
 			$this->load->library('form_validation');
 			$this->load->helper("url");
 			$this->load->library('session');
+			$this->load->library('paypal_lib');
+        	$this->load->model('product');
 		}
 
 		function footer()
@@ -29,6 +31,26 @@
 			$this->db->where('status', '0');
 			$query = $this->db-> get();
 			$data['noticia'] = $query->result();
+			$this->db->get('Personal');
+			$this->db->from('Personal');
+			$this->db->where('estado', 0);
+			$query = $this->db-> get();
+			$data['personal'] = $query->result();
+
+			$this->db->get('Precio');
+			$this->db->from('Precio');
+			$this->db->where('estado', 0);
+			$query = $this->db-> get();
+			$data['precio'] = $query->result();
+
+			$query = $this->db->get('Cita');
+			$data['TotalCita'] = $query->num_rows();
+
+			$query = $this->db->get('login');
+			$data['TotalCliente'] = $query->num_rows();
+
+			$query = $this->db->get('Producto');
+			$data['TotalProducto'] = $query->num_rows();
 
 			$this->load->view('Head',$data);
 			$this->load->view('Home',$data);
@@ -40,6 +62,16 @@
             $data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "galeria";
+
+            $this->db->get('Estilo');
+			$this->db->from('Estilo');
+			$this->db->where('estado', 0);
+			$query = $this->db-> get();
+			$data['estilo'] = $query->result();
+
+			$query = $this->db->get('ImagenEstilo');
+			$data['ImagenEstilo'] = $query->result();
+
 			$this->load->view('Head',$data);
 			$this->load->view('Galeria',$data);
 			$this->load->view('Footer2',$data);
@@ -50,14 +82,134 @@
             $data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "producto";
-			$this->load->view('Head',$data);
+
+
+            $this->db->get('Producto');
+            $this->db->from('Producto');
+            $consulta = $this->db->get();
+            $this->db->get('ProductoUsuario');
+            $this->db->from('ProductoUsuario');
+            $consulta2 = $this->db->get();
+            foreach($consulta->result() as $row ) 
+            {
+            	$sum = 0;
+            	$this->db->get('ProductoUsuario');
+            	$this->db->from('ProductoUsuario');
+            	$this->db->where('producto_id', $row->id);
+				$query = $this->db->get();
+				if($query->num_rows() >0)
+				{
+					
+					foreach($query->result() as $row2) 
+	            	{
+	            		$sum = $sum + $row2->valoracion;
+	            	}
+
+	            	if($sum !=0)
+	            	{
+	            		$valor = intval($sum/$query->num_rows());
+	            		$data2 = array(
+			                'valoracion' => $valor             
+			            );
+			            $this->db->where('id', $row->id);
+			            $this->db->update('Producto', $data2);
+	            	}
+
+				}
+            	
+            }
+
+            $this->db->get('Producto');
+			$this->db->from('Producto');
+			$this->db->where('estado', 0);
+			$query = $this->db-> get();
+			$data['producto'] = $query->result();
+			//$this->load->view('Head',$data);
 			$this->load->view('Producto',$data);
-			$this->load->view('Footer2',$data);
+			//$this->load->view('Footer2',$data);
 		}
+
+		function buy(){
+        // Set variables for paypal form
+        $returnURL = base_url().'paypal/success';
+        $cancelURL = base_url().'paypal/cancel';
+        $notifyURL = base_url().'paypal/ipn';
+
+        $price = $_GET["priceTotal"];
+
+        $data2 = array();
+        $data2['user'] = $this->session->userdata('id');
+
+        $array = $_GET['id-product'];
+        $array = explode(",", $array);
+        for($i=0;$i<count($array);$i++)
+        {
+        	$data = array(
+					        'producto_id' => intval($array[$i]),
+					        'usuario_id' => $data2['user'],
+					        'valoracion' => 3
+					        
+					);
+
+					$this->db->insert('ProductoUsuario', $data);
+        }
+
+        // Get product data from the database
+        
+        
+        // Get current user ID from the session
+        
+        
+        // Add fields to paypal form
+        $this->paypal_lib->add_field('return', $returnURL);
+        $this->paypal_lib->add_field('cancel_return', $cancelURL);
+        $this->paypal_lib->add_field('notify_url', $notifyURL);
+        $this->paypal_lib->add_field('item_name', "ProductoAlexPiñero");
+        $this->paypal_lib->add_field('custom', $data2['user']);
+        $this->paypal_lib->add_field('item_number',  "000-023");
+        $this->paypal_lib->add_field('amount',  $price);
+        
+        // Render paypal form
+        $this->paypal_lib->paypal_auto_form();
+    }
 		function Perfil()
 		{
             $data = array();
+            $data['id'] = $this->session->userdata('id');
             $data['user'] = $this->session->userdata('usuario');
+
+            $this->db->get('ProductoUsuario');
+            $this->db->from('ProductoUsuario');
+            $this->db->where('usuario_id', $data['id']);
+            $consulta = $this->db->get();
+            foreach ($consulta->result() as $row ) {
+            	
+            	if(isset($_POST[$row->producto_id]))
+            	{
+            		
+	            		$data2 = array(
+		                'usuario_id' => $row->usuario_id,
+		                'producto_id' => $row->producto_id,
+		                'valoracion' => $_POST[$row->producto_id]               
+		            );
+		            $this->db->where('id', $row->id);
+		            $this->db->update('ProductoUsuario', $data2);
+	            }
+            }
+
+           
+            $this->db->get('ProductoUsuario');
+			$this->db->from('ProductoUsuario');
+			$this->db->where('usuario_id', $data['id']);
+			$query = $this->db->get();
+			$data['productoUsuario'] = $query->result();
+
+			$this->db->get('Producto');
+			$this->db->from('Producto');
+			$query = $this->db-> get();
+			$data['producto'] = $query->result();
+
+
             $data['active'] = "perfil";
 			$this->load->view('Head',$data);
 			$this->load->view('Perfil',$data);

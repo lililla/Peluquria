@@ -25,18 +25,18 @@
 
 			<div class="footer-left">
 
-				<h3>Alex<span>Piñero</span></h3>
+				<h3 style="font-size:50px;">Alex<span>Piñero</span></h3>
 
 				<p class="footer-links">
-					<a href="#">Home</a>
-					·
-					<a href="#">Cita</a>
-					·
-					<a href="#">Galerias</a>
-					·
-					<a href="#">Producto</a>
-					·
-					<a href="#">Contacto</a>
+					<a href="<?php echo site_url() ?>Gestion/inicio" style="color:black; font-size:25px;">Home / </a>
+					
+					<a href="<?php echo site_url() ?>Gestion/cita" style="color:white; font-size:25px;">Cita / </a>
+					
+					<a href="<?php echo site_url() ?>Gestion/Galeria" style="color:black; font-size:25px;">Galerias / </a>
+					
+					<a href="<?php echo site_url() ?>Gestion/Producto" style="color:white; font-size:25px;">Producto / </a>
+					
+					<a href="<?php echo site_url() ?>Gestion/Contacto" style="color:black; font-size:25px;">Contacto / </a>
 				</p>
 
 				<!--<p class="footer-company-name">Company Name &copy; 2015</p>-->
@@ -51,12 +51,12 @@
 
 				<div>
 					<i class="fa fa-phone"></i>
-					<p>+1 555 123456</p>
+					<p style="font-size:20px;">+1 555 123456</p>
 				</div>
 
 				<div>
 					<i class="fa fa-envelope"></i>
-					<p><a href="mailto:support@company.com">support@company.com</a></p>
+					<p style="font-size:20px;"><a style="color:black;" href="mailto:support@company.com">support@company.com</a></p>
 				</div>
 
 			</div>
@@ -64,8 +64,7 @@
 			<div class="footer-right">
 
 				<p class="footer-company-about">
-					<span>AlexPiñero</span>
-					AlexPiñero Style for men es un salon de peluquería...
+					<span style="font-size:20px;">AlexPiñero</span>
 				</p>
 
 				<div class="footer-icons">

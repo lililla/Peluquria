@@ -46,22 +46,22 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action="<?php echo site_url() ?>GestionAdmin/ListaCierre">
+                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/Cierre" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Día de cierre 1</label>
-                                            <input id="date" type="date">
-                                            <p class="help-block">8/02/2019</p>
+                                            <input id="date" type="date" name="dia1">
+                                            <p class="help-block" name="dia1">8/02/2019</p>
                                             <label>Día de cierre 2</label>
-                                            <input id="date" type="date">
+                                            <input id="date" type="date" name="dia2">
                                             <p class="help-block">8/02/2019</p>
                                             <label>Día de cierre 3</label>
-                                            <input id="date" type="date">
+                                            <input id="date" type="date" name="dia3">
                                             <p class="help-block">8/02/2019</p>
                                             <label>Día de cierre 4</label>
-                                            <input id="date" type="date">
+                                            <input id="date" type="date" name="dia4">
                                             <p class="help-block">8/02/2019</p>
                                             <label>Día de cierre 5</label>
-                                            <input id="date" type="date">
+                                            <input id="date" type="date" name="dia5">
                                             <p class="help-block">8/02/2019</p>
                                         </div>
                                 </div>
@@ -69,7 +69,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                             <label>Día de la semana</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="semana">
                                                 <option>Lunes</option>
                                                 <option>Martes</option>
                                                 <option>Miercoles</option>
@@ -81,7 +81,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Mes Cerrado</label>
-                                            <select class="form-control">
+                                            <select class="form-control" name="mes">
                                                 <option>Enero</option>
                                                 <option>Febrero</option>
                                                 <option>Marzo</option>
@@ -96,8 +96,9 @@
                                                 <option>Diciembre</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-default">Aceptar</button>
-                                        <button type="reset" class="btn btn-default" href="<?php echo site_url() ?>GestionAdmin/Personal">Cancelar</button>
+                                        <input type="submit" class="btn btn-primary" name="fileSubmit" value="Aceptar"></input>
+                                    </form>
+                                        <a type="reset" class="btn btn-primary" href="<?php echo site_url() ?>GestionAdmin/Cierre">Cancelar</a>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

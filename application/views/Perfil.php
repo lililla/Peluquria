@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link href="<?php echo base_url() ?>/assets/css/miperfil/popup.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo base_url() ?>/assets/css/miperfil/magnific-popup.css" rel="stylesheet" type="text/css"/>
+
+<link href="<?php echo base_url() ?>/assets/css/miperfil/styles.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<?php echo base_url() ?>/assets/css/miperfil/star-rating.js?ver=3.1.1"></script>
+
+
 <script src="vendor/magnific-popup/jquery.magnific-popup.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/assets/js/Modal/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url() ?>/assets/js/Modal/jquery.leanModal.min.js"></script>
@@ -129,6 +134,210 @@
       </div>
     </section>
 
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section ftco-animate text-center">
+            <h2 class="mb-4">Mis productos adquiridos</h2>
+          </div>
+        </div>
+        <div class="row">
+
+          <?php
+          $i=0;
+          foreach ($productoUsuario as $row ) 
+          {
+            foreach ($producto as $row2 ) 
+            {
+
+              if($row->producto_id == $row2->id)
+              {
+
+                echo"<div class='col-md-3 ftco-animate'>
+                  <div class='product-entry text-center'>
+                    <a><img src='".base_url()."/uploads/".$row2->imagen."' class='img-fluid' alt='Colorlib Template'></a>
+                    <div class='text'>
+                      <h3 style='color:#000;''><a style='color:#000;'>".$row2->nombre."</a></h3>
+                      <section class='section' id='section-1'>
+                        <form class='form-1' method='post' action='Perfil'>
+                            <select class='rating".$i."' name='".$row->producto_id."'>";
+                            if($row->valoracion == 0)
+                            {
+                                echo "<option value='' selected></option>";
+                                echo "<option value='5'></option>";
+                                echo "<option value='4'></option>";
+                                echo "<option value='3'></option>";
+                                echo "<option value='2'></option>";
+                                echo "<option value='1'></option>";
+                            }
+                            if($row->valoracion == 1)
+                            {
+                                echo "<option value=''></option>";
+                                echo "<option value='5'></option>";
+                                echo "<option value='4'></option>";
+                                echo "<option value='3'></option>";
+                                echo "<option value='2'></option>";
+                                echo "<option value='1' selected></option>";
+                            }
+                            if($row->valoracion == 2)
+                            {
+                                echo "<option value=''></option>";
+                                echo "<option value='5'></option>";
+                                echo "<option value='4'></option>";
+                                echo "<option value='3'></option>";
+                                echo "<option value='2' selected></option>";
+                                echo "<option value='1'></option>";
+                            }
+                            if($row->valoracion == 3)
+                            {
+                                echo "<option value=''></option>";
+                                echo "<option value='5'></option>";
+                                echo "<option value='4'></option>";
+                                echo "<option value='3' selected></option>";
+                                echo "<option value='2'></option>";
+                                echo "<option value='1'></option>";
+                            }
+                            if($row->valoracion == 4)
+                            {
+                                echo "<option value=''></option>";
+                                echo "<option value='5'></option>";
+                                echo "<option value='4' selected></option>";
+                                echo "<option value='3'></option>";
+                                echo "<option value='2'></option>";
+                                echo "<option value='1'></option>";
+                            }
+                            if($row->valoracion == 5)
+                            {
+                                echo "<option value=''></option>";
+                                echo "<option value='5' selected></option>";
+                                echo "<option value='4'></option>";
+                                echo "<option value='3'></option>";
+                                echo "<option value='2'></option>";
+                                echo "<option value='1'></option>";
+                            }
+                        echo"
+                            </select>
+                          
+                          
+                            <br></br>
+                            <input type='submit' class='btn my-cart-btn' value='valorar' ></input> 
+                          
+                        </form>
+                      </section>
+
+                    </div>
+                  </div>
+                </div>";
+                $i++;
+              }
+              
+            }
+          }?>
+          <!--<div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-2.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <section class="section" id="section-1">
+                  <form class="form-1">
+                    
+                      <select id="glsr-ltr" class="star-rating" disabled="disabled">
+                        <option value=""></option>
+                        <option value="5"></option>
+                        <option value="4"></option>
+                        <option value="3"></option>
+                        <option value="2"></option>
+                        <option value="1"></option>
+                      </select>
+                    
+                    <div class="button-group">
+                      <button type="button">Toggle</button>
+                      
+                    </div>
+                  </form>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-3.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-4.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-1.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-2.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-3.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="product-entry text-center">
+              <a href="#"><img src="<?php echo base_url() ?>/assets/img/Producto/prod-4.png" class="img-fluid" alt="Colorlib Template"></a>
+              <div class="text">
+                <h3><a href="#">Shaves 01</a></h3>
+                <span class="price mb-4">$150</span>
+                <p><a href="#" class="btn btn-primary">Add to cart</a></p>
+              </div>
+            </div>
+          </div>-->
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+              <div class="block-27">
+                <ul>
+                  <li><a href="#">&lt;</a></li>
+                  <li class="active"><span>1</span></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&gt;</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
     
 
     <div id="popup1" class="overlay">
@@ -189,6 +398,169 @@
                 <a class="close" href="#">&times;</a>
             </div>
         </div>
+
+
+    <script type="text/javascript">
+        var destroyed = false;
+        var starratings = new StarRating( '.star-rating', {
+          onClick: function( el ) {
+            console.log( 'Selected: ' + el[el.selectedIndex].text );
+          },
+        });
+        document.querySelector( '.toggle-star-rating' ).addEventListener( 'click', function() {
+          if( !destroyed ) {
+            starratings.destroy();
+            destroyed = true;
+          }
+          else {
+            starratings.rebuild();
+            destroyed = false;
+          }
+        });
+  </script>
+
+
+
+
+  <script type='text/javascript'>
+                    
+        var starratings = new StarRating('.rating0');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings1 = new StarRating('.rating1');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings2 = new StarRating('.rating2');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings3 = new StarRating('.rating3');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings4 = new StarRating('.rating4');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings5 = new StarRating('.rating5');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings6 = new StarRating('.rating6');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings7 = new StarRating('.rating7');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings8 = new StarRating('.rating8');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings9 = new StarRating('.rating9');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings10 = new StarRating('.rating10');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings11 = new StarRating('.rating11');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings12 = new StarRating('.rating12');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings13 = new StarRating('.rating13');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings14 = new StarRating('.rating14');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings15 = new StarRating('.rating15');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings16 = new StarRating('.rating16');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings17 = new StarRating('.rating17');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings18 = new StarRating('.rating18');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
+
+    <script type='text/javascript'>
+                    
+        var starratings19 = new StarRating('.rating19');
+        //var starratings = new StarRating( '.rating1', {});
+
+    </script>
 
 
 

@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://192.168.0.4/Peluqueria';
+$config['base_url'] = 'http://192.168.1.38/Peluqueria';
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +53,23 @@ $config['index_page'] = '';
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
 $config['uri_protocol']	= 'REQUEST_URI';
+
+
+
+$config['sandbox'] = TRUE; // FALSE for live environment
+
+// PayPal business email
+$config['business'] = 'machavesperez-facilitator@gmail.com';
+
+// What is the default currency?
+$config['paypal_lib_currency_code'] = 'USD';
+
+// Where is the button located at?
+$config['paypal_lib_button_path'] = 'assets/images/';
+
+// If (and where) to log ipn response in a file
+$config['paypal_lib_ipn_log'] = TRUE;
+$config['paypal_lib_ipn_log_file'] = BASEPATH . 'logs/paypal_ipn.log';
 
 /*
 |--------------------------------------------------------------------------

@@ -270,23 +270,29 @@
     	</div>
     	<div class="container-wrap">
     		<div class="row no-gutters d-flex">
-    			<div class="col-md-4 d-flex ftco-animate">
-    				<div class="services-wrap d-flex">
-    					<a href="#" class="img" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/work-1.jpg');"></a>
-    					<div class="text p-4">
-    						<h3>Hair Style </h3>
-    						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia </p>
-    						<!--<span><a href="#">Read more</a></span> -->
+    			   <?php
+             foreach ($personal as $row ) {
+
+                echo"<div class='col-md-4 d-flex ftco-animate'>
+    				          <div class='services-wrap d-flex'>
+    					         ";?>
+                       <a class='img' style="background-image: url('<?php echo base_url() ?>/uploads/<?php echo $row->imagen ?>')";'></a>
+                       
+    					         <?php echo"<div class='text p-4'>
+    						        <h3>".$row->nombre."</h3>
+    						<p>".$row->informacion."</p>
     					</div>
     				</div>
-    			</div>
-    			<div class="col-md-4 d-flex ftco-animate">
+    			</div>";
+              }?>
+
+<!--    			<div class="col-md-4 d-flex ftco-animate">
     				<div class="services-wrap d-flex">
-    					<a href="#" class="img" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/work-2.jpg');"></a>
+    					<a href="#" class="img" style="background-image: url('<?php echo base_url() ?>/uploads/IMG_067815.JPG');"></a>
     					<div class="text p-4">
     						<h3>Trimming</h3>
     						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-    						<!--<span><a href="#">Read more</a></span> -->
+    						
     					</div>
     				</div>
     			</div>
@@ -296,11 +302,11 @@
     					<div class="text p-4">
     						<h3>Traditional Haircuts Mens </h3>
     						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-    						<!--<span><a href="#">Read more</a></span> -->
+    						
     					</div>
     				</div>
     			</div>
-<!--
+
     			<div class="col-md-4 d-flex ftco-animate">
     				<div class="services-wrap d-flex">
     					<a href="#" class="img order-md-last" style="background-image: url(images/work-4.jpg);"></a>
@@ -345,83 +351,44 @@
           </div>
         </div>
         <div class="row">
-        	<div class="col-md-6">
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Men's Haircut</h3>
-        				<h3 class="price">$20.00</h3>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Children Haircut</h3>
-        				<span class="price">$29.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Beard Cut</h3>
-        				<span class="price">$20.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Men's Haircut</h3>
-        				<span class="price">$20.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        	</div>
 
-        	<div class="col-md-6">
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Women's Haircut</h3>
-        				<span class="price">$49.91</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Men's Haircut</h3>
-        				<span class="price">$20.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Men's Haircut</h3>
-        				<span class="price">$20.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        		<div class="pricing-entry ftco-animate">
-        			<div class="d-flex text align-items-center">
-        				<h3 style = "color:#000;"" >Men's Haircut</h3>
-        				<span class="price">$20.00</span>
-        			</div>
-        			<div class="d-block">
-        				<p>A small river named Duden flows by their place and supplies</p>
-        			</div>
-        		</div>
-        	</div>
+
+          <?php
+            $i = 0;
+            foreach ($precio as $row ) {
+              if($i%2==0)
+              {
+              	echo "<div class='col-md-6'>
+              		<div class='pricing-entry ftco-animate'>
+              			<div class='d-flex text align-items-center'>
+              				<h3 style = 'color:#000;'>".$row->nombre."</h3>
+              				<h3 class='price'>".$row->precio."€</h3>
+              			</div>
+              			<div class='d-block'>
+              				<p>".$row->informacion."</p>
+              			</div>
+              		</div>
+              	</div>";
+              }
+
+              
+              //$row = current($precio);
+              else
+              {
+              	echo"<div class='col-md-6'>
+              		<div class='pricing-entry ftco-animate'>
+              			<div class='d-flex text align-items-center'>
+              				<h3 style = 'color:#000;'' >".$row->nombre."</h3>
+              				<span class='price'>".$row->precio."€</span>
+              			</div>
+              			<div class='d-block'>
+              				<p>".$row->informacion."</p>
+              			</div>
+              		</div>
+              	</div>";
+              }
+              $i++;
+            }?>
         </div>
     	</div>
     </section>
@@ -435,17 +402,17 @@
               <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 text-center">
                   <div class="text">
-                    <div class="icon"><span class="far fa-eye"></span></div>
-                    <strong class="number" data-number="705">0</strong>
-                    <span>Visitas</span>
+                    <div class="icon"><span class="fa fa-cut"></span></div>
+                    <?php echo"<strong class='number' data-number='".$TotalCita."'>0</strong>";?>
+                    <span>Citas</span>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 text-center">
                   <div class="text">
-                    <div class="icon"><span class="far fa-users"></span></div>
-                    <strong class="number" data-number="1000">0</strong>
+                    <div class="icon"><span class="fa fa-users"></span></div>
+                    <?php echo"<strong class='number' data-number='".$TotalCliente."'>0</strong>";?>
                     <span>Registro</span>
                   </div>
                 </div>
@@ -453,16 +420,16 @@
               <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 text-center">
                   <div class="text">
-                    <div class="icon"><span class="fas fa-cut"></span></div>
-                    <strong class="number" data-number="3000">0</strong>
-                    <span>Servicios Realizados</span>
+                    <div class="icon"><span class="fa fa-tag"></span></div>
+                    <?php echo"<strong class='number' data-number='".$TotalProducto."'>0</strong>";?>
+                    <span>Producto</span>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 text-center">
                   <div class="text">
-                    <div class="icon"><span class="fas fa-shopping-cart"></span></div>
+                    <div class="icon"><span class="fa fa-shopping-cart  "></span></div>
                     <strong class="number" data-number="900">0</strong>
                     <span>Compra Gestionada</span>
                   </div>

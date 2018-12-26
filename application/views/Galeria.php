@@ -26,59 +26,35 @@
 	    	<div class="container-wrap">
 	    		<div class="row no-gutters">
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-1.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-1.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-1.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-2.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-2.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img  d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-2.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-3.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-3.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-3.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-4.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-4.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-4.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-5.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-5.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-5.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-6.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-6.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-6.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-7.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-7.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-7.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a href="images/gallery-8.jpg" class="gallery img image-popup d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-8.jpg');">
-								<div class="icon mb-4 d-flex align-items-center justify-content-center">
-      						<span class="icon-search"></span>
-      					</div>
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-8.jpg');">
 							</a>
 						</div>
 	        </div>
@@ -274,23 +250,44 @@
           </div>
         </div>
         <div class="row">
-        	<div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
-        		<div class="staff">
-      				<div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/person_1.jpg');"></div>
-      				<div class="info text-center">
-      					<h3><a href='<?php echo base_url() ?>/assets/img/Galeria/gallery-1.jpg' class="image-popup-1 d-flex align-items-center">Cortes de pelo y peinados Otoño Invierno 2018</a>
-      						<a href='<?php echo base_url() ?>/assets/img/Galeria/gallery-2.jpg' class="image-popup-1 d-flex align-items-center"></a></h3>
-      					<span class="position">Alex Piñero</span>
-      					<div class="text">
-	        				<p>tendencias actuales en cortes de cabello</p>
-	        			</div>
-      				</div>
-        		</div>
-        	</div>
+        	
+          <?php
+              $fila = 1;
+             foreach ($estilo as $row ) 
+             {
+                $i = 0;
+                echo"<div class='col-lg-3 d-flex mb-sm-4 ftco-animate'>
+                  <div class='staff'>";?>
+                    <div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/person_1.jpg');"></div>
+                    <?php echo"<div class='info text-center'>
+                      <h3>";
+                      $i = 0;
+                      foreach ($ImagenEstilo as $row2 ) 
+                      {
+                        if($row->id == $row2->idEstilo)
+                        {
+                          echo"<a href='".base_url()."/uploads/".$row2->imagen."' class='image-popup-".$fila." d-flex align-items-center'>"; if($i == 0) echo $row->asunto; echo"</a></h3>";
+                          $i++;   
+                        }
+                        
+                      }
+                        
+                      echo"<span class='position'>Alex Piñero</span>
+                      <div class='text'>
+                        <p>".$row->descripcion."</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>";
+                $fila++;
+              }?>
 
 
 
-        	<div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
+
+
+
+        	<!--<div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
       				<div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/person_2.jpg');"></div>
       				<div class="info text-center">
@@ -325,7 +322,7 @@
 	        			</div>
       				</div>
         		</div>
-        	</div>
+        	</div>-->
         </div>
         <div class="row mt-5">
 	          <div class="col text-center">

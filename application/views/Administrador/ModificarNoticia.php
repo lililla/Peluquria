@@ -47,7 +47,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/setImageNoticia" enctype="multipart/form-data">
+                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/Noticia" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Asunto</label>
                                             <input class="form-control" type="text" <?php echo"value='".$noticia->asunto."'";?> name="asunto" maxlength="21" required>

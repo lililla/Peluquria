@@ -55,6 +55,51 @@
 				$this->db->where('id', $id);
 				$this->db->update('Noticia'); // gives UPDATE mytable SET field = field+1 WHERE id = 2*/
 			}
+
+			if(isset($_POST['fileSubmit']) && !empty($_FILES['files']['name']))
+	        {
+	     
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData[$i]['imagen'] = $fileData['file_name'];
+	                    $uploadData[$i]['fecha'] = date("Y-m-d");
+	                    $uploadData[$i]['asunto'] = $this->input->post('asunto');
+	                    $uploadData[$i]['informacion'] = $this->input->post('informacion');
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertNoticia($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string()); 
+	        }
 			
 
 			$query = $this->db->get('Noticia');
@@ -98,7 +143,7 @@
 			$jsondata = array();
 			$jsondata['status'] = "success";			 
 			echo json_encode($jsondata);
-			show_Noticia();
+			
 			
 			
 			
@@ -114,63 +159,6 @@
 			echo json_encode($result);
 		}
 
-		function setImageNoticia(){
-        $data = array();
-
-
-        // If file upload form submitted
-
-        if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
-        {
-     
-            $filesCount = count($_FILES['files']['name']);
-
-            for($i = 0; $i < $filesCount; $i++){
-                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
-                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
-                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
-                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
-
-                
-                // File upload configuration
-                $uploadPath = 'uploads';
-                $config['upload_path'] = $uploadPath;
-                $config['max_size'] = '30720';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                
-                // Load and initialize upload library
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-                
-                // Upload file to server
-                if($this->upload->do_upload('file')){
-                    // Uploaded file data
-                    $fileData = $this->upload->data();
-                    $uploadData[$i]['imagen'] = $fileData['file_name'];
-                    $uploadData[$i]['fecha'] = date("Y-m-d");
-                    $uploadData[$i]['asunto'] = $this->input->post('asunto');
-                    $uploadData[$i]['informacion'] = $this->input->post('informacion');
-                }
-            }
-            
-            if(!empty($uploadData)){
-                // Insert files data into the database
-                $insert = $this->File->insertNoticia($uploadData);
-                
-                // Upload status message
-                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
-                $this->session->set_flashdata('statusMsg',$statusMsg);
-            }
-        }
-        
-        // Get files data from the database
-        //$data['files'] = $this->File->getRows();
-        
-        // Pass the files data to view
-        $this->Noticia();
-        
-    }
 
 
     //PERSONAL
@@ -210,6 +198,50 @@
 				$this->db->where('id', $id);
 				$this->db->update('Noticia'); // gives UPDATE mytable SET field = field+1 WHERE id = 2*/
 			}
+
+			if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
+	        {
+	     
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData[$i]['imagen'] = $fileData['file_name'];
+	                    $uploadData[$i]['nombre'] = $this->input->post('asunto');
+	                    $uploadData[$i]['informacion'] = $this->input->post('informacion');
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPersonal($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string()); 
+	        }
 			
 
 			$query = $this->db->get('Personal');
@@ -269,65 +301,7 @@
 			echo json_encode($result);
 		}
 
-		function setImagePersonal(){
-        $data = array();
-
-
-        // If file upload form submitted
-
-        if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
-        {
-     
-            $filesCount = count($_FILES['files']['name']);
-
-            for($i = 0; $i < $filesCount; $i++){
-                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
-                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
-                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
-                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
-
-                
-                // File upload configuration
-                $uploadPath = 'uploads';
-                $config['upload_path'] = $uploadPath;
-                $config['max_size'] = '30720';
-                $config['allowed_types'] = 'jpg|jpeg|png|gif';
-                
-                // Load and initialize upload library
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-                
-                // Upload file to server
-                if($this->upload->do_upload('file')){
-                    // Uploaded file data
-                    $fileData = $this->upload->data();
-                    $uploadData[$i]['imagen'] = $fileData['file_name'];
-                    $uploadData[$i]['nombre'] = $this->input->post('asunto');
-                    $uploadData[$i]['informacion'] = $this->input->post('informacion');
-                }
-            }
-            
-            if(!empty($uploadData)){
-                // Insert files data into the database
-                $insert = $this->File->insertPersonal($uploadData);
-                
-                // Upload status message
-                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
-                $this->session->set_flashdata('statusMsg',$statusMsg);
-            }
-        }
-        
-        // Get files data from the database
-        //$data['files'] = $this->File->getRows();
-        
-        // Pass the files data to view
-        $this->Personal();
-        
-    }
-
-
-
+		
     //PRECIO
 
 
@@ -365,6 +339,29 @@
 				$this->db->where('id', $id);
 				$this->db->update('Noticia'); // gives UPDATE mytable SET field = field+1 WHERE id = 2*/
 			}
+
+			if($this->input->post('fileSubmit'))
+	        {
+	     
+	          
+	            
+	            $uploadData['nombre'] = $this->input->post('asunto');
+	            $uploadData['precio'] = $this->input->post('precio');
+	            $uploadData['informacion'] = $this->input->post('informacion');
+	                
+	            
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPrecio($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	  
+	        	redirect($this->uri->uri_string());
+	    	}
 			
 
 			$query = $this->db->get('Precio');
@@ -430,28 +427,7 @@
 
 	        // If file upload form submitted
 
-	        if($this->input->post('fileSubmit'))
-	        {
-	     
-	          
-	            
-	            $uploadData['nombre'] = $this->input->post('asunto');
-	            $uploadData['precio'] = $this->input->post('precio');
-	            $uploadData['informacion'] = $this->input->post('informacion');
-	                
-	            
-	            
-	            if(!empty($uploadData)){
-	                // Insert files data into the database
-	                $insert = $this->File->insertPrecio($uploadData);
-	                
-	                // Upload status message
-	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
-	                $this->session->set_flashdata('statusMsg',$statusMsg);
-	            }
-	  
-	        		$this->Precio();
-	    	}
+	        
 	    }
 
 
@@ -496,6 +472,51 @@
 				$this->db->where('id', $id);
 				$this->db->update('Noticia'); // gives UPDATE mytable SET field = field+1 WHERE id = 2*/
 			}
+
+			if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
+	        {
+	     
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData[$i]['imagen'] = $fileData['file_name'];
+	             		$uploadData[$i]['precio'] = $this->input->post('precio');
+	             		$uploadData[$i]['stock'] = $this->input->post('stock');
+	                    $uploadData[$i]['nombre'] = $this->input->post('asunto');
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertProducto($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string());
+	        }
 			
 
 			$query = $this->db->get('Producto');
@@ -590,6 +611,7 @@
                     $fileData = $this->upload->data();
                     $uploadData[$i]['imagen'] = $fileData['file_name'];
              		$uploadData[$i]['precio'] = $this->input->post('precio');
+             		$uploadData[$i]['stock'] = $this->input->post('stock');
                     $uploadData[$i]['nombre'] = $this->input->post('asunto');
                 }
             }
@@ -612,94 +634,516 @@
         
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
-		
-
-		
-		
+    //ESTILO
 
 		function Estilo()
 		{
+			$this->output->delete_cache();
+			
+			if(isset($_POST['visible'])) 
+			{
+				$id = $this->input->post('visible');
+				$this->db->get('Estilo');
+				$this->db->select('estado');
+				$this->db->from('Estilo');
+				$this->db->where('id', $id);
+				$query = $this->db-> get();
+				$status = null;
+				foreach ($query->result() as $value) {
+					$status = $value->estado;
+				}
+				if($status == 0)
+				{
+					$this->db->set('estado', 1, TRUE);
+					$this->db->where('id', $id);
+					$this->db->update('Estilo');
+				}
+				else
+				{
+					$this->db->set('estado', 0, TRUE);
+					$this->db->where('id', $id);
+					$this->db->update('Estilo');
+				}
+				
+
+				/*$this->db->set('status', '0', TRUE);
+				$this->db->where('id', $id);
+				$this->db->update('Noticia'); // gives UPDATE mytable SET field = field+1 WHERE id = 2*/
+			}
+
+			if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
+	        {
+
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData2[$i]['imagen'] = $fileData['file_name'];
+	                    
+	                    $uploadData['fecha'] = date("Y-m-d");
+	                    $uploadData['asunto'] = $this->input->post('asunto');
+	                    $uploadData['descripcion'] = $this->input->post('informacion');
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertEstilo($uploadData);
+	                $insertId = $this->db->insert_id();
+	                for($i = 0; $i < $filesCount; $i++){
+	                	$uploadData2[$i]['idEstilo'] = $insertId;
+	                }
+	                
+	                $insert = $this->db->insert_batch('ImagenEstilo',$uploadData2);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string());
+	        }
+
+			
+
+			$query = $this->db->get('Estilo');
+			$data['estilo'] = $query->result();
+			
 			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/Estilo');
+			$this->load->view('Administrador/Estilo',$data);
 		}
 
 		function NuevoEstilo()
 		{
+			$data['estilo'] = null;
 			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/NuevoEstilo');
+			$this->load->view('Administrador/NuevoEstilo', $data);
 		}
-		function ListaCita()
+
+		function NuevoEstiloo()
 		{
+			$data['estilo'] = null;
 			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/ListaCita');
+			$this->load->view('Administrador/NuevoEstilooo', $data);
 		}
+
+		function UpdateEstilo()
+		{
+			if(isset($_GET))
+			{
+				$asunto = $_GET['asunto'];
+			}
+			$this->db->get('Estilo');
+			$this->db->from('Estilo');
+			$this->db->where('asunto', $asunto);
+			$query = $this->db-> get();
+			$data['estilo'] = $query->result();
+			foreach ($data['estilo'] as $row) {
+				$data['estilo'] = $row;
+			}
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/ModificarEstilo',$data);
+		}
+		
+		function EliminarEstilo()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Estilo', array('id' => $id));
+			$this->db->delete('ImagenEstilo', array('idEstilo' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Estilo();
+			
+			
+			
+		}
+
+		function show_Estilo()
+		{
+
+			$data = $this->db->get('Estilo');
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+		function setImageEstilo(){
+        $data = array();
+
+
+        // If file upload form submitted
+
+        if($this->input->post('fileSubmit') && !empty($_FILES['files']['name']))
+        {
+
+            $filesCount = count($_FILES['files']['name']);
+
+            for($i = 0; $i < $filesCount; $i++){
+
+                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+                
+                // File upload configuration
+                $uploadPath = 'uploads';
+                $config['upload_path'] = $uploadPath;
+                $config['max_size'] = '30720';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                
+                // Upload file to server
+                if($this->upload->do_upload('file')){
+                    // Uploaded file data
+                    $fileData = $this->upload->data();
+                    $uploadData2[$i]['imagen'] = $fileData['file_name'];
+                    
+                    $uploadData['fecha'] = date("Y-m-d");
+                    $uploadData['asunto'] = $this->input->post('asunto');
+                    $uploadData['descripcion'] = $this->input->post('informacion');
+                }
+            }
+            
+            if(!empty($uploadData)){
+
+                // Insert files data into the database
+                $insert = $this->File->insertEstilo($uploadData);
+                $insertId = $this->db->insert_id();
+                for($i = 0; $i < $filesCount; $i++){
+                	$uploadData2[$i]['idEstilo'] = $insertId;
+                }
+                
+                $insert = $this->db->insert_batch('ImagenEstilo',$uploadData2);
+                
+                // Upload status message
+                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+                $this->session->set_flashdata('statusMsg',$statusMsg);
+            }
+        }
+        
+        // Get files data from the database
+        //$data['files'] = $this->File->getRows();
+        
+        // Pass the files data to view
+        $this->Estilo();
+        
+    }
+
+
+    ///CITA
+
+    function Cita()
+		{
+			$this->output->delete_cache();
+
+			$query = $this->db->get('Cita');
+			$data['cita'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Cita',$data);
+		}
+
+		function EliminarCita()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Cita', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Cita();
+			
+			
+			
+		}
+
+		function show_Cita()
+		{
+
+			$data = $this->db->get('Cita');
+
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+
+	///CIERRE
+
+		function Cierre()
+		{
+			$this->output->delete_cache();
+
+			if($this->input->post('fileSubmit'))
+	        {
+	        	if($this->input->post('dia1') != "")
+	        	{
+	        		$uploadData1['fecha'] = $this->input->post('dia1');
+	        		$insert = $this->File->insertCierre($uploadData1);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	if($this->input->post('dia2') != "")
+	        	{
+	        		$uploadData2['fecha'] = $this->input->post('dia2');
+	        		$insert = $this->File->insertCierre($uploadData2);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        		
+	        	}
+	        	if($this->input->post('dia3') != "")
+	        	{
+	        		$uploadData3['fecha'] = $this->input->post('dia3');
+	        		$insert = $this->File->insertCierre($uploadData3);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	if($this->input->post('dia4') != "")
+	        	{
+	        		$uploadData4['fecha'] = $this->input->post('dia4');
+	        		$insert = $this->File->insertCierre($uploadData4);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	if($this->input->post('dia5') != "")
+	        	{
+	        		$uploadData5['fecha'] = $this->input->post('dia5');
+	        		$insert = $this->File->insertCierre($uploadData5);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	if($this->input->post('semana') != "")
+	        	{
+	        		$uploadData6['fecha2'] = $this->input->post('semana');
+	        		$insert = $this->File->insertCierre($uploadData6);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	if($this->input->post('mes') != "")
+	        	{
+	        		$uploadData7['fecha2'] = $this->input->post('mes');
+	        		$insert = $this->File->insertCierre($uploadData7);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	        	}
+	        	redirect($this->uri->uri_string());
+	        }
+			
+			$query = $this->db->get('Cierre');
+			$data['cierre'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Cierre',$data);
+		}
+
+		function NuevoCierre()
+		{
+			$data['precio'] = null;
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/NuevoCierre', $data);
+		}
+
+		function show_Cierre()
+		{
+
+			$data = $this->db->get('Cierre');
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+		function EliminarCierre()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Cierre', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Cierre();
+	
+		}
+
+	///HORARIO
+
+		function Horario()
+		{
+			$this->output->delete_cache();
+
+			if($this->input->post('fileSubmit'))
+	        {
+
+	            $uploadData['tipo'] = $this->input->post('tipo');
+	                
+	            
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertHorario($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	  
+	        	redirect($this->uri->uri_string());
+	    	}
+			
+			$query = $this->db->get('Horario');
+			$data['horario'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Horario',$data);
+		}
+
+		function NuevoHorario()
+		{
+			$data['cierre'] = null;
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/NuevoHorario', $data);
+		}
+
+		function show_Horario()
+		{
+
+			$data = $this->db->get('Horario');
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+		function EliminarHorario()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Horario', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Horario();
+	
+		}
+
+
+		///CLIENTE
+
+		function Cliente()
+		{
+			$this->output->delete_cache();
+
+			$query = $this->db->get('login');
+			print($query->num_rows());
+			$data['login'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Cliente',$data);
+		}
+
+		function EliminarCliente()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Cliente', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Cliente();
+			
+			
+			
+		}
+
+		function show_Cliente()
+		{
+
+			$data = $this->db->get('login');
+
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		function Horarios()
 		{
 			$this->load->view('Administrador/Head');
 		}
-		function Cierres()
-		{
-			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/ListaCierre');
-		}
-		function NuevoCierre()
-		{
-			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/NuevoCierre');
-		}
+		
 		function ListaClientes()
 		{
 			$this->load->view('Administrador/Head');
 			$this->load->view('Administrador/ListaCliente');
 		}
-		function Cliente()
-		{
-			$this->load->view('Administrador/Head');
-			$this->load->view('Administrador/Cliente');
-		}
+		
 		
 		/*function do_upload() 
 		{

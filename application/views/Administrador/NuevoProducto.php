@@ -47,7 +47,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/setImageProducto" enctype="multipart/form-data">
+                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/Producto" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Nombre</label>
                                             <input class="form-control" type="text" name="asunto" maxlength="21" required>
@@ -68,6 +68,12 @@
                                             <span class="input-group-addon"><i class="fa fa-eur"></i>
                                             </span>
                                             <input type="text" name="precio" class="form-control" placeholder="Font Awesome Icon">
+                                        </div>
+                                        <label>Stock</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-gift"></i>
+                                            </span>
+                                            <input type="text" name="stock" class="form-control" placeholder="Font Awesome Icon">
                                         </div>
                                         <input type="submit" class="btn btn-primary" name="fileSubmit" value="Aceptar"></input>
                                         

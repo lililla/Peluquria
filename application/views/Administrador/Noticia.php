@@ -202,20 +202,20 @@ body, html {
                         if(data[i].status == 0)
                         {
                             html += '<tr>'+
-                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.4/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
+                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
                                 '<td style="border-color:#393e46;" align="center">'+ data[i].fecha +'</td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.4/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-circle fa-3x"></i></label></form></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.4/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-lock fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }
                         else
                         {
                             html += '<tr>'+
-                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.4/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
+                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
                                 '<td style="border-color:#393e46;" align="center">'+ data[i].fecha +'</td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.4/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-circle-o fa-3x"></i></label></form></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.4/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-unlock fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }
@@ -223,6 +223,8 @@ body, html {
                     }
 
                     $('#show_data').html(html);
+
+
                 }
 
             });
@@ -231,6 +233,7 @@ body, html {
     
         $(document).on('click', 'button.removebutton', function () {
             var id = this.id;
+            window.location.reload();
             if(confirm("¿Estás seguro de eliminar la noticia?"))
             {
                 $(this).closest('tr').remove();

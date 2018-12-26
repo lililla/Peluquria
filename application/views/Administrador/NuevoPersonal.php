@@ -47,7 +47,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/setImagePersonal" enctype="multipart/form-data">
+                                    <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/Personal" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Nombre</label>
                                             <input class="form-control" type="text" name="asunto" maxlength="21" required>
@@ -71,7 +71,7 @@
                                         <input type="submit" class="btn btn-primary" name="fileSubmit" value="Aceptar"></input>
                                         
                                     </form>
-                                    <a type="reset" class="btn btn-primary" href="<?php echo site_url() ?>GestionAdmin/Peronal">Cancelar</a>
+                                    <a type="reset" class="btn btn-primary" href="<?php echo site_url() ?>GestionAdmin/Personal">Cancelar</a>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                             </div>

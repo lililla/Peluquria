@@ -69,6 +69,11 @@
               
         <?php }?>
 
+                <!--<div style="float: right; cursor: pointer;">
+                    <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+                </div>-->
+               
+
                 
             </ul>
           </div>

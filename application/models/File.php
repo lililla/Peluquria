@@ -42,9 +42,29 @@ class File extends CI_Model{
         return $insert?true:false;
     }
 
+    public function insertHorario($data = array()){
+        $insert = $this->db->insert('Horario',$data);
+        return $insert?true:false;
+    }
+
+    public function insertCierre($data = array()){
+        $insert = $this->db->insert('Cierre',$data);
+        return $insert?true:false;
+    }
+
     public function insertProducto($data = array()){
         $insert = $this->db->insert_batch('Producto',$data);
         return $insert?true:false;
     }
+
+    public function insertEstilo($data = array(), $data2 = array()){
+        $insert = $this->db->insert('Estilo',$data);
+        $insertId = $this->db->insert_id();
+        
+        //$data2['idEstilo'] = $insertId;
+        //$insert = $this->db->insert_batch('ImagenEstilo',$data2);
+        return $insert?true:false;
+    }
+
     
 }

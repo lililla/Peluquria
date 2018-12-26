@@ -202,18 +202,18 @@ body, html {
                         if(data[i].estado == 0)
                         {
                             html += '<tr>'+
-                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.4/Peluqueria/GestionAdmin/UpdatePersonal?nombre='+ data[i].nombre +'">'+ data[i].nombre +'</a></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.4/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.4/Peluqueria/GestionAdmin/Personal" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-circle fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdatePersonal?nombre='+ data[i].nombre +'">'+ data[i].nombre +'</a></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Personal" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-lock fa-3x"></i></label></form></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }
                         else
                         {
                             html += '<tr>'+
-                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.4/Peluqueria/GestionAdmin/UpdatePersonal?nombre='+ data[i].nombre +'">'+ data[i].nombre +'</a></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.4/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.4/Peluqueria/GestionAdmin/Personal" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-circle-o fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdatePersonal?nombre='+ data[i].nombre +'">'+ data[i].nombre +'</a></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Personal" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-unlock fa-3x"></i></label></form></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }
