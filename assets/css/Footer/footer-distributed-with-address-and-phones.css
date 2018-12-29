@@ -9,10 +9,12 @@
 	width: 100%;
 	text-align: left;
 	font: bold 16px sans-serif;
+	background-size: 1400px;
 
 	padding: 55px 50px;
 	margin-top: 80px;
 }
+
 
 .footer-distributed .footer-left,
 .footer-distributed .footer-center,

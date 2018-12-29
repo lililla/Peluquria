@@ -233,12 +233,20 @@
 		}
 		function cita()
 		{
+
 			$data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "cita";
+            $query = $this->db->get('Personal');
+            $data['personal'] = $query->result();
+            $query = $this->db->get('Horario');
+            $data['horario'] = $query->result();
+
+            $query = $this->db->get('Cierre');
+            $data['cierres'] = $query->result();
 			$this->load->view('HeadCita',$data);
 			$this->load->view('calendar',$data);
-		    $this->load->view('Footer2',$data);
+		    $this->load->view('Footer',$data);
 		}
 
 		function Contacto()
@@ -248,6 +256,16 @@
             $data['active'] = "contacto";
 			$this->load->view('Head',$data);
 			$this->load->view('Contacto',$data);
+			$this->load->view('Footer2',$data);
+		}
+
+		function Red()
+		{
+			$data = array();
+            $data['user'] = $this->session->userdata('usuario');
+            $data['active'] = "red";
+			$this->load->view('Head',$data);
+			$this->load->view('RedSocial',$data);
 			$this->load->view('Footer2',$data);
 		}
 		function miperfil()
@@ -439,15 +457,6 @@
 			if(isset($_POST['booking_date'])) $booking_date = $_POST['booking_date'];
 			if(isset($_POST['cost_per_slot'])) $cost_per_slot = $_POST['cost_per_slot'];
 
-
-
-
-
-
-
-
-
-
 			$booking_array = array(
 				"slots_booked" => $slots_booked,	
 				"booking_date" => $booking_date
@@ -461,40 +470,76 @@
 			$usuarioCita = 24;
 			$email = "hola";
 			$explode = explode('|', $slots_booked);
+			$num = count($explode) -2;
 
-			foreach($explode as $slot) {
+			
 
-				if(strlen($slot) > 0 && $email!= null) 
+				if(strlen($slots_booked) > 0 && $email!= null) 
 				{
 					if($tipo ==1)
 					{
-						print($booking_date);
-						print($slot);
-						print($usuarioCita);
-						print($tipo);
+						
 
 						$data = array(
 					        'fecha' => $booking_date,
-					        'hora' => $slot,
-					        'usuario' => $usuarioCita,
-					        'id_peluquero' => $tipo
+					        'hora' => $explode[$num],
+					        'id_login' => $usuarioCita,
+					        'id_personal' => $tipo
 					);
 
-					$this->db->insert('cita', $data);
+					$this->db->insert('Cita', $data);
 
 					}
 
 					if($tipo ==2)
 					{
-						//Aqui se inserta los datos en la tabla al confirmar la cita
+						
+						
 
-						$stmt = $link->prepare("INSERT INTO cita (fecha, hora2, usuario) VALUES (?, ?, ?)");
-						//$stmt = $link->prepare("INSERT INTO bookings (date, start, name) VALUES (?, ?, ?)");  
-						$stmt->bind_param('sss', $booking_date, $slot, $usuarioCita);
-						$stmt->execute();
+						$data = array(
+					        'fecha' => $booking_date,
+					        'hora' => $explode[$num],
+					        'id_login' => $usuarioCita,
+					        'id_personal' => $tipo
+					);
+
+					$this->db->insert('Cita', $data);
+
+					}
+
+					if($tipo ==3)
+					{
+						
+						
+
+						$data = array(
+					        'fecha' => $booking_date,
+					        'hora' => $explode[$num],
+					        'id_login' => $usuarioCita,
+					        'id_personal' => $tipo
+					);
+
+					$this->db->insert('Cita', $data);
+
+					}	
+
+					if($tipo ==4)
+					{
+						
+						
+
+						$data = array(
+					        'fecha' => $booking_date,
+					        'hora' => $explode[$num],
+					        'id_login' => $usuarioCita,
+					        'id_personal' => $tipo
+					);
+
+					$this->db->insert('Cita', $data);
+
 					}		
 				}
-			} // Close foreach
+			 // Close foreach
 
 				
 
@@ -513,8 +558,9 @@
 			sleep(5);
 			$q = $this->db->query('SELECT usuario FROM login WHERE id = ?',$usuarioCita);
 			$data = $q->result_array();
-			$usuario = $data[0]['usuario']; 
-			$this->load->view('Confirmacion',$usuario);
+			$usuario = $data[0]['usuario'];
+			$data['user'] = $this->session->userdata('usuario'); 
+			$this->load->view('Confirmacion',$data);
 		}
 
         function prueba2()
@@ -770,7 +816,7 @@
 			            	$this->session->set_userdata($usuario_data);
 			            	
 			            	$jsondata = array();
-			            	$jsondata['redirect_url'] = base_url('index.php/Gestion/logueado');
+			            	$jsondata['redirect_url'] = base_url('index.php/Gestion/inicio');
 							$jsondata['status'] = "success";			 
 				        	echo json_encode($jsondata);
 				    		exit();
@@ -809,7 +855,7 @@
 			        $data['active'] = "home";
 			        $this->load->view('Head',$data);
 					$this->load->view('Home',$data);
-					$this->load->view('Footer',$data);
+					$this->load->view('Footer2',$data);
 		      	}
 		      	else
 		      	{

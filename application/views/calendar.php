@@ -28,26 +28,90 @@ $cadena = "".$year.$month.$day."";
 //Turno 2 Tarde
 //Turno 0 mañana y tarde
 $fecha = date('l', strtotime($cadena));
+$numSemana = date('W', strtotime($cadena));
 
-$alex = 1;//Admi
-$torero = 2;//Admi
 
-if($fecha=="Friday")
+//HORARIO 1 (2 Peluquero)
+
+
+foreach ($horario as $row) 
+    {
+    	$horarios = $row->tipo;
+    }
+
+if($horarios == 1)
 {
-	$alex = 0;
-	$torero = 0;
+	if($numSemana%2==0)
+	{
+		$Peluquero1 = 1;
+		$Peluquero2 = 2;
+	}
+	else
+	{
+		$Peluquero1 = 2;
+		$Peluquero2 = 1;
+	}
+	
+
+	if($fecha=="Friday")
+	{
+		$Peluquero1 = 3;
+		$Peluquero2 = 3;
+	}
+	if($fecha=="Saturday")
+	{
+		$Peluquero1 = 1;
+		$Peluquero2 = 1;
+	}
+
+	$Peluquero3 = 0;
+	$Peluquero4 = 0;
 }
+
+if($horarios == 2)
+{
+	if($numSemana%2==0)
+	{
+		$Peluquero1 = 1;
+		$Peluquero2 = 2;
+		$Peluquero3 = 1;
+	}
+	else
+	{
+		$Peluquero1 = 2;
+		$Peluquero2 = 1;
+		$Peluquero3 = 2;
+	}
+	
+
+	if($fecha=="Friday")
+	{
+		$Peluquero1 = 3;
+		$Peluquero2 = 3;
+		$Peluquero3 = 3;
+	}
+	if($fecha=="Saturday")
+	{
+		$Peluquero1 = 1;
+		$Peluquero2 = 1;
+		$Peluquero3 = 1;
+	}
+
+	$Peluquero4=0;
+}
+
+//HORARIO 3 (3 Peluquero)
+
+
 
 //**** Array de cierres****
 
-$cierre1 = "2017-02-6";
-$cierre2 = "2017-02-20";
-$cierre3 = "2017-02-25";
-$cierre4 = "2017-03-20";//Admi
-$cierres[0] = $cierre1;
-$cierres[1] = $cierre2;
-$cierres[2] = $cierre3;
-$cierres[3] = $cierre4;
+
+
+for ($i=0; $i < count($cierres) ; $i++) 
+{ 
+	$cierre[$i] = $cierres[$i]->fecha;
+}
 
 //**** Meses actuales para solo poder coger citas en los dos proximos meses****
 $mesActual = date("m");
@@ -58,7 +122,7 @@ $noMes = true;
 if($month - $mesActual >=1 && $year >= $anoActual )
 	$noMes = false;
 
-$calendar = new booking_diary($link, $noMes,$alex,$torero, $cierres);
+$calendar = new booking_diary($link, $noMes,$Peluquero1,$Peluquero2,$Peluquero3,$Peluquero4, $cierre, $personal);
 
 
 
@@ -139,12 +203,6 @@ $forward = strtotime("+1 month", $selected_date);
 
 var check_array = [];
 
-var cont=1;
-var cont2=1;
-var tamAlex;
-var tamTorero;
-var clickAlex = false;
-var clickTorero = false;
 $(document).ready(function()
 {
 	$(".fields").click(function()
@@ -155,20 +213,19 @@ $(document).ready(function()
 	        body: '<div class="w2ui-centered">This is text inside the popup</div>'
 	    });*/
 
-		cont++;
+		//cont++;
    	
-		var tipo = 1;
-		$("#tipo").val(tipo);
-
-		obj2 = document.getElementById($(this).val())
-		tamAlex = obj2.getAttribute('name');
-		tamTorero = $("#tamTorero").val();
 		
 
-		if(cont%2==0)
+		//obj2 = document.getElementById($(this).val())
+		//tamPeluquero1 = obj2.getAttribute('name');
+		//tamPeluquero2 = $("#tamPeluquero2").val();
+		
+
+		/*if(cont%2==0)
 		{
 			clickAlex=true;
-			for(i=0;i<tamAlex;i++)
+			for(i=12;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -182,7 +239,7 @@ $(document).ready(function()
 		else
 		{
 			clickAlex=false;
-			for(i=0;i<tamAlex;i++)
+			for(i=12;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
@@ -193,7 +250,7 @@ $(document).ready(function()
 		if(clickAlex)
 		{
 
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -201,14 +258,15 @@ $(document).ready(function()
 		}
 		else
 		{
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 			}
-		}
+		}*/
 
-		
+		var tipo = 1;
+		$("#tipo").val(tipo);
 
 		
 		dataval = $(this).data('val');
@@ -228,19 +286,19 @@ $(document).ready(function()
 			x.checked = false;
 			check_array.splice($.inArray(dataval, check_array) ,1);//Aqui elimina la hora seleccionada
 
-			for(i=23;i<tamTorero;i++)
+			/*for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 				obj.checked = false;
 			}
-				for(i=0;i<tamAlex;i++)
+				for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 				obj.checked = false;
 
-			}
+			}*/
 			
 
 		})
@@ -285,20 +343,19 @@ $(document).ready(function()
 
 	$(".fields2").click(function()
 	{
-		tipo = 2;
-		$("#tipo").val(tipo);
-
-		obj2 = document.getElementById($(this).val())
-		tamTorero = obj2.getAttribute('name');
-		tamAlex = $("#tamAlex").val();
 		
 
-		cont2++;
+		//obj2 = document.getElementById($(this).val())
+		//tamPeluquero2 = obj2.getAttribute('name');
+		//tamPeluquero1 = $("#tamPeluquero1").val();
+		
 
-		if(cont2%2==0)
+		//cont2++;
+
+		/*if(cont2%2==0)
 		{
 			clickTorero = true;
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 
 				obj = document.getElementById(i);
@@ -313,7 +370,7 @@ $(document).ready(function()
 		{
 			
 			clickTorero = false;
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
@@ -324,7 +381,7 @@ $(document).ready(function()
 		if(clickTorero)
 		{
 
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -332,12 +389,15 @@ $(document).ready(function()
 		}
 		else
 		{
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 			}
-		}
+		}*/
+
+		tipo = 2;
+		$("#tipo").val(tipo);
 	
 		dataval = $(this).data('val');
 	
@@ -349,24 +409,24 @@ $(document).ready(function()
 
 		$("#closePopup").click(function()
 		{
-			$("#modal").css("display", "none");
+			$("#modal2").css("display", "none");
 			var x = document.getElementById(id);
 			x.checked = false;
 			check_array.splice($.inArray(dataval, check_array) ,1);//Aqui elimina la hora seleccionada
 
-			for(i=23;i<tamTorero;i++)
+			/*for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 				obj.checked = false;
 			}
-				for(i=0;i<tamAlex;i++)
+				for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
 				obj.checked = false;
 
-			}
+			}*/
 			
 
 		})
@@ -408,7 +468,155 @@ $(document).ready(function()
 		
 	});
 
+	$(".fields3").click(function()
+	{
+
+		tipo = 3;
+		$("#tipo").val(tipo);
 	
+		dataval = $(this).data('val');
+	
+		// Mostrar el cuadro Ranuras seleccionadas si alguien selecciona una ranura
+		if($("#modal2").css("display") == 'none') 
+		{ 
+			$("#modal2").css("display", "block");
+		}
+
+		$("#closePopup").click(function()
+		{
+			$("#modal2").css("display", "none");
+			var x = document.getElementById(id);
+			x.checked = false;
+			check_array.splice($.inArray(dataval, check_array) ,1);//Aqui elimina la hora seleccionada
+
+			/*for(i=23;i<tamPeluquero2;i++)
+			{
+				obj = document.getElementById(i);
+				obj.disabled=false;
+				obj.checked = false;
+			}
+				for(i=0;i<tamPeluquero1;i++)
+			{
+				obj = document.getElementById(i);
+				obj.disabled=false;
+				obj.checked = false;
+
+			}*/
+			
+
+		})
+
+		if(jQuery.inArray(dataval, check_array) == -1) 
+		{
+			check_array.push(dataval);
+		} else 
+		{
+			// Elimina el valor seleccionado de la matriz
+			check_array.splice($.inArray(dataval, check_array) ,1);	
+		}
+		
+		slots=''; hidden=''; basket = 0;
+		
+		cost_per_slot = $("#cost_per_slot").val();
+		//cost_per_slot = parseFloat(cost_per_slot).toFixed(2)
+
+		for (i=0; i< check_array.length; i++) 
+		{
+			slots += check_array[i] + '\r\n';
+			hidden += check_array[i].substring(0, 8) + '|';
+
+			basket = (basket + parseFloat(cost_per_slot));
+		}
+				
+		// Rellene la sección de ranuras seleccionadas
+		$("#selected_slots").html(slots);
+		
+		// Actualizar el elemento de formulario slots_booked oculto con ranuras reservadas
+		$("#slots_booked").val(hidden);
+		// Actualizar cesta caja total
+		basket = basket.toFixed(2);
+		$("#total").html(basket);
+
+		// Ocultar la sección de la cesta si un usuario desmarca todas las ranuras
+		if(check_array.length == 0)
+		$("#outer_basket").css("display", "none");
+
+	});
+
+	$(".fields4").click(function()
+	{
+
+		tipo = 4;
+		$("#tipo").val(tipo);
+	
+		dataval = $(this).data('val');
+	
+		// Mostrar el cuadro Ranuras seleccionadas si alguien selecciona una ranura
+		if($("#modal2").css("display") == 'none') 
+		{ 
+			$("#modal2").css("display", "block");
+		}
+
+		$("#closePopup").click(function()
+		{
+			$("#modal2").css("display", "none");
+			var x = document.getElementById(id);
+			x.checked = false;
+			check_array.splice($.inArray(dataval, check_array) ,1);//Aqui elimina la hora seleccionada
+
+			/*for(i=23;i<tamPeluquero2;i++)
+			{
+				obj = document.getElementById(i);
+				obj.disabled=false;
+				obj.checked = false;
+			}
+				for(i=0;i<tamPeluquero1;i++)
+			{
+				obj = document.getElementById(i);
+				obj.disabled=false;
+				obj.checked = false;
+
+			}*/
+			
+
+		})
+
+		if(jQuery.inArray(dataval, check_array) == -1) 
+		{
+			check_array.push(dataval);
+		} else 
+		{
+			// Elimina el valor seleccionado de la matriz
+			check_array.splice($.inArray(dataval, check_array) ,1);	
+		}
+		
+		slots=''; hidden=''; basket = 0;
+		
+		cost_per_slot = $("#cost_per_slot").val();
+		//cost_per_slot = parseFloat(cost_per_slot).toFixed(2)
+
+		for (i=0; i< check_array.length; i++) 
+		{
+			slots += check_array[i] + '\r\n';
+			hidden += check_array[i].substring(0, 8) + '|';
+
+			basket = (basket + parseFloat(cost_per_slot));
+		}
+				
+		// Rellene la sección de ranuras seleccionadas
+		$("#selected_slots").html(slots);
+		
+		// Actualizar el elemento de formulario slots_booked oculto con ranuras reservadas
+		$("#slots_booked").val(hidden);
+		// Actualizar cesta caja total
+		basket = basket.toFixed(2);
+		$("#total").html(basket);
+
+		// Ocultar la sección de la cesta si un usuario desmarca todas las ranuras
+		if(check_array.length == 0)
+		$("#outer_basket").css("display", "none");
+
+	});
 	
 	
 	$(".classname").click(function()
@@ -444,7 +652,25 @@ $(document).ready(function()
 </script>
 
 </head>
-<body style="background-color:black;">
+<body>
+	<style type="text/css">
+
+    .img-container body
+    {
+    	background-size: 400px;
+        width: 600px;
+        height: 500px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        
+    }
+    .img-container img:hover {opacity: 0.7;}
+    
+        
+    </style>
+
+	<body class="img-container" style="background-image: url('<?php echo base_url() ?>/assets/img/Peluqueria/DSC03363.jpg');background-size: 1400px;"></body>
 
 
 <?php 

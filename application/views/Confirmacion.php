@@ -15,14 +15,58 @@
 </head>
 <body>
 	<header class="site-header" id="header">
-		<h1 class="site-header__title" data-lead-id="site-header-title">Muchas Gracias Miguel Ángel!!</h1>
+		<?php echo"<h2 class='site-header__title' data-lead-id='site-header-title'>Muchas gracias ".$user."</h2>";?>
 	</header>
 
 	<div class="main-content">
 		<i class="fa fa-check main-content__checkmark" id="checkmark"></i>
-		<p class="main-content__body" data-lead-id="main-content-body">Gracias por tu petición de reserva en nuestra página Web.</p>
+		<p class="main-content__body" data-lead-id="main-content-body">Su cita se ha gestionado satisfactoriamente.</p>
+		<br></br>
+		<a class="button" style="color:white;" href="<?php echo site_url() ?>Gestion/inicio" style="vertical-align:middle"><span>Continuar </span></a>
 	</div>
 
 	
 </body>
+
+<style>
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: green;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 </html>

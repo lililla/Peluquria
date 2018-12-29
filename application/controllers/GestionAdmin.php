@@ -962,7 +962,7 @@
 	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
 	                $this->session->set_flashdata('statusMsg',$statusMsg);
 	        	}
-	        	if($this->input->post('mes') != "")
+	        	/*if($this->input->post('mes') != "")
 	        	{
 	        		$uploadData7['fecha2'] = $this->input->post('mes');
 	        		$insert = $this->File->insertCierre($uploadData7);
@@ -970,7 +970,7 @@
 	                // Upload status message
 	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
 	                $this->session->set_flashdata('statusMsg',$statusMsg);
-	        	}
+	        	}*/
 	        	redirect($this->uri->uri_string());
 	        }
 			

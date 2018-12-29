@@ -86,6 +86,22 @@
         </div>
       </nav>
 
+    <style type="text/css">
+
+    .img-container img
+    {
+        width: 250px;
+        height: 250px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        
+    }
+    .img-container img:hover {opacity: 0.7;}
+    
+        
+    </style>
+
 
 
     
@@ -399,7 +415,7 @@
         foreach ($producto as $row ) {
           echo"<div class='col-md-3 ftco-animate'>
             <div class='product-entry text-center'>
-              <a><img src='".base_url()."/uploads/".$row->imagen."' class='img-fluid' alt='Colorlib Template'></a>
+              <a><div class='img-container'><img src='".base_url()."/uploads/".$row->imagen."' class='img-fluid' alt='Colorlib Template'></div></a>
               <div class='text'>
                 <h3 style='color:#000;''><a style='color:#000;'>".$row->nombre."</a></h3>
                 <span class='price mb-4'>".$row->precio."€</span>

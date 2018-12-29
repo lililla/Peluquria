@@ -55,7 +55,8 @@
               <li<?php if($active == "cita"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/cita" class="nav-link">Cita</a></li>
               <li <?php if($active == "galeria"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Galeria" class="nav-link">Galerias</a></li>            
               <li <?php if($active == "producto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Producto" class="nav-link">Productos</a></li>
-              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link">Contacto</a></li> 
+              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link">Contacto</a></li>
+              <li <?php if($active == "red"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Red" class="nav-link">RedSocial</a></li>  
               <?php
               if($user == false)
               {?>

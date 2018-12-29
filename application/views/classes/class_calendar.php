@@ -7,13 +7,24 @@ class booking_diary
 
 
 // Mysqli connection
-function __construct($link, $noMes, $alex, $torero, $cierres) 
+function __construct($link, $noMes, $Peluquero1, $Peluquero2, $Peluquero3, $Peluquero4, $cierre, $personal) 
 {
     $this->link = $link;
     $this->noMes = $noMes;
-    $this->alex = $alex;
-    $this->torero = $torero;
-    $this->cierres = $cierres;
+    $this->Peluquero1 = $Peluquero1;
+    $this->Peluquero2 = $Peluquero2;
+    $this->Peluquero3 = $Peluquero3;
+    $this->Peluquero4 = $Peluquero4;
+    $this->cierre = $cierre;
+    
+    $i=0;
+    foreach ($personal as $row) 
+    {
+    	$this->personal[$i] = $row->nombre;
+    	$i++;
+
+    }
+    
 
 }
 
@@ -44,7 +55,7 @@ public $cost_currency_tag			= "&euro;";		// The currency tag in HTML such as &eu
 
 public $day_order	 				= array("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo");
 //public $day_order	 				= array("Lunes", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
-public $day, $month, $year, $selected_date, $back, $back_month, $back_year, $forward, $forward_month, $forward_year, $bookings, $count, $days, $is_slot_booked_today,$noMes,$alex=0,$torero=0, $cierres;
+public $day, $month, $year, $selected_date, $back, $back_month, $back_year, $forward, $forward_month, $forward_year, $bookings, $count, $days, $is_slot_booked_today,$noMes,$Peluquero1=0,$Peluquero2=0, $cierres;
 public static $peluquero=0;
 
 
@@ -79,11 +90,11 @@ function make_calendar($selected_date, $back, $forward, $day, $month, $year) {
 
 function make_booking_array($year, $month, $j = 0) { 
 
-	$stmt = $this->link->prepare("SELECT usuario, fecha, hora, hora2 FROM cita WHERE fecha LIKE  CONCAT(?, '-', ?, '%')"); 
+	$stmt = $this->link->prepare("SELECT id_login, fecha, hora FROM Cita WHERE fecha LIKE  CONCAT(?, '-', ?, '%')"); 
 	$this->is_slot_booked_today = 0; // Defaults to 0
 
 	$stmt->bind_param('ss', $year, $month);	
-	$stmt->bind_result($name, $date, $start, $start2);	
+	$stmt->bind_result($name, $date, $start);	
 	$stmt->execute();
 	$stmt->store_result();
 	
@@ -93,8 +104,8 @@ function make_booking_array($year, $month, $j = 0) {
  		$this->bookings[] = array(
             "usuario" => $name, 
             "fecha" => $date, 
-            "hora" => $start,
-            "hora2" => $start2        
+            "hora" => $start
+                    
  		); 
 	
 		// Utilizado por la función 'booking_form' posteriormente para comprobar si hay algún espacio reservado en el día seleccionado		
@@ -309,14 +320,13 @@ function make_cells($table = '') //Funcion para los dias de Cierre
 
 		}
 
-		for($i=0;$i<count($this->cierres);$i++)
+		if($fecha == $this->cierre[0])
 		{
-			if("".$this->year."-".$this->month."-".$r['daynumber']."" == $this->cierres[$i])
-			{
-				echo "\r\n<td width='21' valign='top' class='closed'>" . $this->day_closed_text . "</td>";
-				$tag = 1;
-			}
+
+			echo "\r\n<td width='21' valign='top' class='closed'>" . $this->day_closed_text . "</td>";
+			$tag = 1;
 		}
+	
 		
 
 		
@@ -441,13 +451,33 @@ function booking_form()
 		
 		} // Close if*/
 
+	$stmt1 = $this->link->prepare("SELECT hora FROM Cita WHERE id_personal = '1' AND fecha LIKE  CONCAT(?, '-',?, '-', ?, '%')"); 
 
-	$stmt = $this->link->prepare("SELECT hora, hora2 FROM cita WHERE fecha LIKE  CONCAT(?, '-',?, '-', ?, '%')"); 
+	$stmt1->bind_param('sss', $this->year, $this->month, $this->day);	
+	$stmt1->bind_result($hPeluquero1);	
+	$stmt1->execute();
+	$stmt1->store_result();
 
-	$stmt->bind_param('sss', $this->year, $this->month, $this->day);	
-	$stmt->bind_result($hAlex, $hTorero);	
-	$stmt->execute();
-	$stmt->store_result();
+	$stmt2 = $this->link->prepare("SELECT hora FROM Cita WHERE id_personal = '2' AND fecha LIKE  CONCAT(?, '-',?, '-', ?, '%')"); 
+
+	$stmt2->bind_param('sss', $this->year, $this->month, $this->day);	
+	$stmt2->bind_result($hPeluquero2);	
+	$stmt2->execute();
+	$stmt2->store_result();
+
+	$stmt3 = $this->link->prepare("SELECT hora FROM Cita WHERE id_personal = '3' AND fecha LIKE  CONCAT(?, '-',?, '-', ?, '%')"); 
+
+	$stmt3->bind_param('sss', $this->year, $this->month, $this->day);	
+	$stmt3->bind_result($hPeluquero3);	
+	$stmt3->execute();
+	$stmt3->store_result();
+
+	$stmt4 = $this->link->prepare("SELECT hora FROM Cita WHERE id_personal = '4' AND fecha LIKE  CONCAT(?, '-',?, '-', ?, '%')"); 
+
+	$stmt4->bind_param('sss', $this->year, $this->month, $this->day);	
+	$stmt4->bind_result($hPeluquero4);	
+	$stmt4->execute();
+	$stmt4->store_result();
 	
 	echo "
 	<div id='lhs'><div id='outer_booking'><h2>Citas disponible</h2>
@@ -458,65 +488,113 @@ function booking_form()
 	
 	<table id='booking'>
 		<tr>
-			<th style='width:20%' align='center'>Horario</th>
-			<th style='width:20%' align='center'>Alex</th>
-			<th style='width:20%' align='center'>Torero</th>
-			<th style='width:20%' align='center'>Peluquero 3</th>
-			<th style='width:20%' align='center'>Peluquero 4</th>			
-		</tr>
+			<th style='width:20%' align='center'>Horario</th>";
+			$numsRowPersonal = count($this->personal);
+			$numsRowPersonal--;
+			for ($i=0; $i < 4; $i++) 
+			{
+
+				if($i <= $numsRowPersonal)
+				{
+					echo "<th style='width:20%' align='center'>".$this->personal[$i]."</th>";
+				}
+				else
+				{
+					echo "<th style='width:20%' align='center'>No disponible</th>";
+				}
+			};
+						
+		echo"</tr>
 		<tr>
 			
 		</tr>";		
 		
 		// Bucle a través de la matriz $ slots y crear la tabla de reserva
-		$idAlex= 0;
-		$idTorero=23;
+		//$idPeluquero1= 0; //estos datos lo proporciona la DB
+		//$idPeluquero2=23; //estos datos lo proporciona la DB
 
-		$tamAlex= 12;
-		$tamTorero=34;
-		if($this->alex == 0)
-			$tamAlex = $tamAlex+11;
-		if($this->torero == 0)
-			$tamTorero = $tamTorero+12;	
+		//$tamPeluquero1= 12; //estos datos lo proporciona la DB
+		//$tamPeluquero2=34; //estos datos lo proporciona la DB
+		//if($this->Peluquero1 == 0)
+			//$tamPeluquero1 = $tamPeluquero1+11;
+		//if($this->Peluquero2 == 0)
+			//$tamPeluquero2 = $tamPeluquero2+12;	
 
-		foreach($slots as $i => $hora)
+		/*foreach($slots as $i => $hora)
 		{
-			while($ite=$stmt->fetch()) 
+			while($ite=$stmt1->fetch()) 
 			{    
- 				$this->bookings[] = array("hora" => $hAlex, "hora2" => $hTorero);
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
 
- 				if($hAlex == $hora)
+ 				if($hPeluquero1 == $hora)
  				{
- 					$tamAlex--;				
- 				}
- 				if($hTorero == $hora)
- 				{
- 					$tamTorero--;
+ 					$tamPeluquero1--;				
  				}
  			}
- 			$stmt->data_seek($ite);
-		} 
+ 			$stmt1->data_seek($ite);
+ 			while($ite=$stmt2->fetch()) 
+			{    
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
+
+ 				if($hPeluquero2 == $hora)
+ 				{
+ 					$tamPeluquero2--;
+ 				}
+ 			}
+ 			$stmt2->data_seek($ite);
+		}*/
 
 		foreach($slots as $i => $hora) 
 		{		
-			$cAlex=true;
-			$cTorero=true;
+			$LibrePeluquero1=true;
+			$LibrePeluquero2=true;
+			$LibrePeluquero3=true;
+			$LibrePeluquero4=true;
 
-			while($ite=$stmt->fetch()) 
+			while($ite=$stmt1->fetch()) 
 			{    
- 				$this->bookings[] = array("hora" => $hAlex, "hora2" => $hTorero);
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
 
- 				if($hAlex == $hora)
+ 				if($hPeluquero1 == $hora)
  				{
- 					$cAlex = false;										
- 				}
- 				if($hTorero == $hora)
- 				{
- 					$cTorero = false;
+ 					$LibrePeluquero1 = false;										
  				}
 
             }
-            $stmt->data_seek($ite);
+            $stmt1->data_seek($ite);
+            while($ite=$stmt2->fetch()) 
+			{    
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
+
+ 				if($hPeluquero2 == $hora)
+ 				{
+ 					$LibrePeluquero2 = false;
+ 				}
+
+            }
+            $stmt2->data_seek($ite);
+            while($ite=$stmt3->fetch()) 
+			{    
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
+
+ 				if($hPeluquero3 == $hora)
+ 				{
+ 					$LibrePeluquero3 = false;
+ 				}
+
+            }
+            $stmt3->data_seek($ite);
+            while($ite=$stmt4->fetch()) 
+			{    
+ 				//$this->bookings[] = array("hora" => $hPeluquero1, "hora2" => $hPeluquero2);
+
+ 				if($hPeluquero4 == $hora)
+ 				{
+ 					$LibrePeluquero4 = false;
+ 				}
+
+            }
+            $stmt4->data_seek($ite);
 
            
 			// Calculate finish time
@@ -528,116 +606,234 @@ function booking_form()
 			echo "
 			<tr>\r\n
 				<td bgcolor='#F2F2F2'>" . $elimina_segundos . " </td>\r\n";
-				
 
-				switch($this->alex)
+				switch($this->Peluquero1)
 				{
 					case 1:
 					{
-						if($cAlex && $hora < "15:00:00")
+						if($LibrePeluquero1 && $hora < "15:00:00")
 						{					
 							echo "
-
-							<td bgcolor='#F2F2F2'><input name='".$tamAlex."' id = '".$idAlex."' value= '".$idAlex."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "'  type='image' src='". base_url() ."/free.png' width=70% height = auto class='fields' ></td>\r\n";
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "'  type='image' src='". base_url() ."/free.png' width=70% height = auto class='fields' ></td>\r\n";
 							echo "
-							<input type='hidden' id='tamTorero' value = '".$tamTorero."'>";
+							<input type='hidden'>";
 						}
 						else
 						{
-							$idAlex--;
+							
 							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto;/></td>\r\n";
 						}
 					}
 					break;
 					case 2:
 					{
-						if($cAlex && $hora >= "15:00:00")
+						if($LibrePeluquero1 && $hora >= "15:00:00")
 						{					
 							echo "
-							<td bgcolor='#F2F2F2'><input name='".$tamAlex."' id = '".$idAlex."' value= '".$idAlex."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
 							echo "
-							<input type='hidden' id='tamTorero' value = '".$tamTorero."'>";
+							<input type='hidden'>";
 						}
 						else
 						{
-							$idAlex--;
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto;/></td>\r\n";
+						}
+					}
+					break;
+					case 3:
+					{
+						if($LibrePeluquero1)
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
 							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto;/></td>\r\n";
 						}
 					}
 					break;
 					case 0:
 					{
-						if($cAlex)
-						{					
-							echo "
-							<td bgcolor='#F2F2F2'><input name='".$tamAlex."' id = '".$idAlex."' value= '".$idAlex."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
-							echo "
-							<input type='hidden' id='tamTorero' value = '".$tamTorero."'>";
-						}
-						else
-						{
-							$idAlex--;
-							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto;/></td>\r\n";
-						}
+						echo
+							"<td bgcolor='#F2F2F2'>No disponible</td>";
 					}
 				}
 				
-				switch($this->torero)
+				switch($this->Peluquero2)
 				{
 					case 1:
 					{
-						if($cTorero && $hora < "15:00:00")
+						if($LibrePeluquero2 && $hora < "15:00:00")
 						{				
 							echo "
-							<td bgcolor='#F2F2F2'><input name='".$tamTorero."' id = '".$idTorero."' value= '".$idTorero."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
 							echo "
-							<input type='hidden' id='tamAlex' value = '".$tamAlex."'>";
+							<input type='hidden'>";
 						}
 						else
 						{
-							$idTorero--;
+							
 							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
 						}
 					}
 					break;
 					case 2:
 					{
-						if($cTorero && $hora >= "15:00:00")
+						if($LibrePeluquero2 && $hora >= "15:00:00")
 						{					
 							echo "
-							<td bgcolor='#F2F2F2'><input name='".$tamTorero."' id = '".$idTorero."' value= '".$idTorero."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
 							echo "
-							<input type='hidden' id='tamAlex' value = '".$tamAlex."'>";
+							<input type='hidden'>";
 						}
 						else
 						{
-							$idTorero--;
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 3:
+					{
+						if($LibrePeluquero2)
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
 							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
 						}
 					}
 					break;
 					case 0:
 					{
-						if($cTorero)
-						{					
+						echo
+							"<td bgcolor='#F2F2F2'>No disponible</td>";
+					}
+				}
+				switch($this->Peluquero3)
+				{
+					case 1:
+					{
+						if($LibrePeluquero3 && $hora < "15:00:00")
+						{				
 							echo "
-							<td bgcolor='#F2F2F2'><input name='".$tamTorero."' id = '".$idTorero."' value= '".$idTorero."' data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
 							echo "
-							<input type='hidden' id='tamAlex' value = '".$tamAlex."'>";
+							<input type='hidden'>";
 						}
 						else
 						{
-							$idTorero--;
+							
 							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
 						}
 					}
+					break;
+					case 2:
+					{
+						if($LibrePeluquero3 && $hora >= "15:00:00")
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 3:
+					{
+						if($LibrePeluquero3)
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 0:
+					{
+						echo
+							"<td bgcolor='#F2F2F2'>No disponible</td>";
+					}
 				}
-			echo
-			"<td bgcolor='#F2F2F2'>No disponible</td>";
-			echo"<td bgcolor='#F2F2F2'>No disponible</td>";
+				switch($this->Peluquero4)
+				{
+					case 1:
+					{
+						if($LibrePeluquero4 && $hora < "15:00:00")
+						{				
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 2:
+					{
+						if($LibrePeluquero4 && $hora >= "15:00:00")
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 3:
+					{
+						if($LibrePeluquero4)
+						{					
+							echo "
+							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
+							echo "
+							<input type='hidden'>";
+						}
+						else
+						{
+							
+							echo "<td bgcolor='#F2F2F2'><img src='". base_url() ."/no.png' width=65% height = auto/></td>\r\n";
+						}
+					}
+					break;
+					case 0:
+					{
+						echo
+							"<td bgcolor='#F2F2F2'>No disponible</td>";
+					}
+				}
 			"</tr>";
-			$idAlex++;
-			$idTorero++;
+			
 		
 		} // Close foreach		
 			
@@ -732,7 +928,7 @@ function basket($selected_day = '')
 
 	                                <div class="action_btns">
 	                                        <div class="one_half"><button type='submit' name = 'login' value='ConfirmarCita' id="ConfirmarCita" class="btn">Confirmar</button></div>
-	                                        <div class="one_half last"><button type='submit' name = 'Cancelar' value='cancelar' id='closePopup' class="btn">Cancelar</button></div>
+	                                        <div class="one_half last"><button name = 'Cancelar' value='cancelar' id='closePopup' class="btn">Cancelar</button></div>
 	                                </div>
 	                            </form>
                         </div>

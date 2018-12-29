@@ -9,8 +9,8 @@ var check_array = [];
 
 var cont=1;
 var cont2=1;
-var tamAlex;
-var tamTorero;
+var tamPeluquero1;
+var tamPeluquero2;
 var clickAlex = false;
 var clickTorero = false;
 $(document).ready(function()
@@ -25,14 +25,14 @@ $(document).ready(function()
 		$("#tipo").val(tipo);
 
 		obj2 = document.getElementById($(this).val())
-		tamAlex = obj2.getAttribute('name');
-		tamTorero = $("#tamTorero").val();
+		tamPeluquero1 = obj2.getAttribute('name');
+		tamPeluquero2 = $("#tamPeluquero2").val();
 		
 
 		if(cont%2==0)
 		{
 			clickAlex=true;
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -46,7 +46,7 @@ $(document).ready(function()
 		else
 		{
 			clickAlex=false;
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
@@ -57,7 +57,7 @@ $(document).ready(function()
 		if(clickAlex)
 		{
 
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -65,7 +65,7 @@ $(document).ready(function()
 		}
 		else
 		{
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
@@ -125,8 +125,8 @@ $(document).ready(function()
 		$("#tipo").val(tipo);
 
 		obj2 = document.getElementById($(this).val())
-		tamTorero = obj2.getAttribute('name');
-		tamAlex = $("#tamAlex").val();
+		tamPeluquero2 = obj2.getAttribute('name');
+		tamPeluquero1 = $("#tamPeluquero1").val();
 		
 
 		cont2++;
@@ -134,7 +134,7 @@ $(document).ready(function()
 		if(cont2%2==0)
 		{
 			clickTorero = true;
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 
 				obj = document.getElementById(i);
@@ -149,7 +149,7 @@ $(document).ready(function()
 		{
 			
 			clickTorero = false;
-			for(i=23;i<tamTorero;i++)
+			for(i=23;i<tamPeluquero2;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;
@@ -160,7 +160,7 @@ $(document).ready(function()
 		if(clickTorero)
 		{
 
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=true;
@@ -168,7 +168,7 @@ $(document).ready(function()
 		}
 		else
 		{
-			for(i=0;i<tamAlex;i++)
+			for(i=0;i<tamPeluquero1;i++)
 			{
 				obj = document.getElementById(i);
 				obj.disabled=false;

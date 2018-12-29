@@ -15,6 +15,23 @@
     <script type="text/javascript" src="<?php echo base_url() ?>/assets/js/Modal/jquery.leanModal.min.js"></script>
 
 
+    <style type="text/css">
+
+    .img-container img
+    {
+        width: 250px;
+        height: 250px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        
+    }
+    .img-container img:hover {opacity: 0.7;}
+    
+        
+    </style>
+
+
 <div class="hero-wrap js-fullheight" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/bg_2.jpg');" data-stellar-background-ratio="0.5">
 	      <div class="overlay"></div>
 	      <div class="container">
@@ -156,7 +173,7 @@
 
                 echo"<div class='col-md-3 ftco-animate'>
                   <div class='product-entry text-center'>
-                    <a><img src='".base_url()."/uploads/".$row2->imagen."' class='img-fluid' alt='Colorlib Template'></a>
+                    <a><div class='img-container'><img src='".base_url()."/uploads/".$row2->imagen."' class='img-fluid' alt='Colorlib Template'></div></a>
                     <div class='text'>
                       <h3 style='color:#000;''><a style='color:#000;'>".$row2->nombre."</a></h3>
                       <section class='section' id='section-1'>

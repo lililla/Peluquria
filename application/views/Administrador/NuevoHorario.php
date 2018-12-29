@@ -50,12 +50,8 @@
                                     <form method="post" role="form" action="<?php echo base_url()?>GestionAdmin/Horario" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <select class="form-control" name="tipo">
-                                                <option value="1">Lunes</option>
-                                                <option value="2">Luns</option>
-                                                <option value="3">Lues</option>
-                                                <option value="4">unes</option>
-                                                <option value="5">Luns</option>
-                                                <option value="6">unes</option>
+                                                <option value="1">Horario1(2 Peluquero)</option>
+                                                <option value="2">Horario2(3 Peluquero)</option>
                                             </select>
                                         </div>
                                 

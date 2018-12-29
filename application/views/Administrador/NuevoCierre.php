@@ -64,9 +64,9 @@
                                             <input id="date" type="date" name="dia5">
                                             <p class="help-block">8/02/2019</p>
                                         </div>
-                                </div>
+                                
                                 <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
+                                <!--<div class="col-lg-6">
                                     <div class="form-group">
                                             <label>Día de la semana</label>
                                             <select class="form-control" name="semana">
@@ -95,7 +95,7 @@
                                                 <option>Noviembre</option>
                                                 <option>Diciembre</option>
                                             </select>
-                                        </div>
+                                        </div>-->
                                         <input type="submit" class="btn btn-primary" name="fileSubmit" value="Aceptar"></input>
                                     </form>
                                         <a type="reset" class="btn btn-primary" href="<?php echo site_url() ?>GestionAdmin/Cierre">Cancelar</a>
