@@ -197,6 +197,8 @@ body, html {
 
                     var html = '';
                     var i;
+                    var getUrl = window.location;
+                    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                     for(i=0;i<data.length;i++)
                     {
                         if(data[i].status == 0)
@@ -204,8 +206,8 @@ body, html {
                             html += '<tr>'+
                                 '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
                                 '<td style="border-color:#393e46;" align="center">'+ data[i].fecha +'</td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-lock fa-3x"></i></label></form></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="'+baseUrl+'/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-lock fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="'+baseUrl+'/uploads/'+data[i].imagen+'" ></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }
@@ -214,8 +216,8 @@ body, html {
                             html += '<tr>'+
                                 '<td style="border-color:#393e46;" align="center"><a href="http://192.168.0.12/Peluqueria/GestionAdmin/UpdateNoticia?asunto='+ data[i].asunto +'">'+ data[i].asunto +'</a></td>'+
                                 '<td style="border-color:#393e46;" align="center">'+ data[i].fecha +'</td>'+
-                                '<td style="border-color:#393e46;" align="center"><form action="http://192.168.0.12/Peluqueria/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-unlock fa-3x"></i></label></form></td>'+
-                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="http://192.168.0.12/Peluqueria/uploads/'+data[i].imagen+'" ></td>'+
+                                '<td style="border-color:#393e46;" align="center"><form action="'+baseUrl+'/GestionAdmin/Noticia" method="post"><label class="label"><input  type="submit" name="visible" value="'+ data[i].id +'" id="check" class="label__checkbox" type="submit"/><i style="color:green;" class="fa fa-unlock fa-3x"></i></label></form></td>'+
+                                '<td style="border-color:#393e46;" align="center"><img class="Karim" src="'+baseUrl+'/uploads/'+data[i].imagen+'" ></td>'+
                                 '<td style="border-color:#393e46;" align="center"><button type="button" id="'+ data[i].id +'" class="removebutton"><i style="color:red;" class="fa fa-times fa-2x"></i></button></td>'+
                                 '</tr>';
                         }

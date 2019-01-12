@@ -491,11 +491,14 @@ function booking_form()
 			<th style='width:20%' align='center'>Horario</th>";
 			$numsRowPersonal = count($this->personal);
 			$numsRowPersonal--;
+			$diaActual= "".$this->day."-".$this->month."-".$this->year."";
 			for ($i=0; $i < 4; $i++) 
 			{
 
+				
 				if($i <= $numsRowPersonal)
 				{
+
 					echo "<th style='width:20%' align='center'>".$this->personal[$i]."</th>";
 				}
 				else
@@ -606,12 +609,20 @@ function booking_form()
 			echo "
 			<tr>\r\n
 				<td bgcolor='#F2F2F2'>" . $elimina_segundos . " </td>\r\n";
-
+				$horaPasada = true;
 				switch($this->Peluquero1)
 				{
 					case 1:
 					{
-						if($LibrePeluquero1 && $hora < "15:00:00")
+						
+						if($diaActual == date('d-m-Y'))
+						{
+							if(date('H:i:s')>$hora)
+								{
+									$horaPasada = false;
+								}
+						}
+						if($LibrePeluquero1 && $hora < "15:00:00" && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "'  type='image' src='". base_url() ."/free.png' width=70% height = auto class='fields' ></td>\r\n";
@@ -627,7 +638,7 @@ function booking_form()
 					break;
 					case 2:
 					{
-						if($LibrePeluquero1 && $hora >= "15:00:00")
+						if($LibrePeluquero1 && $hora >= "15:00:00" && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -643,7 +654,7 @@ function booking_form()
 					break;
 					case 3:
 					{
-						if($LibrePeluquero1)
+						if($LibrePeluquero1 && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -668,7 +679,7 @@ function booking_form()
 				{
 					case 1:
 					{
-						if($LibrePeluquero2 && $hora < "15:00:00")
+						if($LibrePeluquero2 && $hora < "15:00:00" && $horaPasada)
 						{				
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -684,7 +695,7 @@ function booking_form()
 					break;
 					case 2:
 					{
-						if($LibrePeluquero2 && $hora >= "15:00:00")
+						if($LibrePeluquero2 && $hora >= "15:00:00" && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -700,7 +711,7 @@ function booking_form()
 					break;
 					case 3:
 					{
-						if($LibrePeluquero2)
+						if($LibrePeluquero2 && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields2' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -724,7 +735,7 @@ function booking_form()
 				{
 					case 1:
 					{
-						if($LibrePeluquero3 && $hora < "15:00:00")
+						if($LibrePeluquero3 && $hora < "15:00:00" && $horaPasada)
 						{				
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -740,7 +751,7 @@ function booking_form()
 					break;
 					case 2:
 					{
-						if($LibrePeluquero3 && $hora >= "15:00:00")
+						if($LibrePeluquero3 && $hora >= "15:00:00" && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -756,7 +767,7 @@ function booking_form()
 					break;
 					case 3:
 					{
-						if($LibrePeluquero3)
+						if($LibrePeluquero3 && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields3' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -780,7 +791,7 @@ function booking_form()
 				{
 					case 1:
 					{
-						if($LibrePeluquero4 && $hora < "15:00:00")
+						if($LibrePeluquero4 && $hora < "15:00:00" && $horaPasada)
 						{				
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -796,7 +807,7 @@ function booking_form()
 					break;
 					case 2:
 					{
-						if($LibrePeluquero4 && $hora >= "15:00:00")
+						if($LibrePeluquero4 && $hora >= "15:00:00" && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -812,7 +823,7 @@ function booking_form()
 					break;
 					case 3:
 					{
-						if($LibrePeluquero4)
+						if($LibrePeluquero4 && $horaPasada)
 						{					
 							echo "
 							<td bgcolor='#F2F2F2'><input  data-val=" . $hora . " - " . date("H:i", $finish_time) . "' class='fields4' type='image' src='". base_url() ."/free.png' width=70% height = auto></td>\r\n";
@@ -916,7 +927,7 @@ function basket($selected_day = '')
 
                                 <div class="centeredText">
                                 	<?php echo"
-                                        <span>Confirmar la cita para el día ".$day."/".$_GET['month']."/".$_GET['year']." con el coste de: " . $this->cost_per_slot . "</span>";?>
+                                        <span>Confirmar la cita para el día ".$day."/".$_GET['month']."/".$_GET['year']."</span>";?>
                                 </div>
 
                                 <form method='post' name = 'Confirmar' action="<?php echo base_url('index.php/Gestion/Confirmacion');?>" name=formulario>

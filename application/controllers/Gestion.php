@@ -7,6 +7,7 @@
 			$this->load->model('Gestion_model');
 			$this->load->library('form_validation');
 			$this->load->helper("url");
+			$this->load->model('File');
 			$this->load->library('session');
 			$this->load->library('paypal_lib');
         	$this->load->model('product');
@@ -52,6 +53,9 @@
 			$query = $this->db->get('Producto');
 			$data['TotalProducto'] = $query->num_rows();
 
+			$query = $this->db->get('ProductoUsuario');
+			$data['ProductoUsuario'] = $query->num_rows();
+
 			$this->load->view('Head',$data);
 			$this->load->view('Home',$data);
 			$this->load->view('Footer2',$data);
@@ -77,8 +81,11 @@
 			$this->load->view('Footer2',$data);
 		}
 
+		
+
 		function Producto()
 		{
+
             $data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "producto";
@@ -130,6 +137,7 @@
 		}
 
 		function buy(){
+			header("Refresh:0");
         // Set variables for paypal form
         $returnURL = base_url().'paypal/success';
         $cancelURL = base_url().'paypal/cancel';
@@ -171,12 +179,86 @@
         
         // Render paypal form
         $this->paypal_lib->paypal_auto_form();
+
     }
 		function Perfil()
 		{
             $data = array();
             $data['id'] = $this->session->userdata('id');
             $data['user'] = $this->session->userdata('usuario');
+            //$data['email'] = $this->session->userdata('email');
+            $q = $this->db->query('SELECT email FROM login WHERE id = ?',$data['id']);
+			$p = $q->result_array();
+			$data['email'] = $p[0]['email']; 
+
+            if(isset($_GET['cerrar']))
+            {
+            	$this->session->sess_destroy();
+			    redirect('Gestion/inicio');
+            }
+
+            if(isset($_GET['cita1'])) 
+            {
+            	$this->db->get('Cita');
+
+				$this->db->from('Cita');
+				$this->db->where('id_login', $data['id']);
+				$query = $this->db->get();
+				$data['citaUsuario'] = $query->result();
+				$cont = 0;
+				foreach ($data['citaUsuario'] as $row) 
+				{
+					if($cont == 0)
+					{
+						$this->db->delete('Cita', array('id' => $row->id));
+					}
+					$cont++;
+					
+				}
+            	
+            }
+
+            if(isset($_GET['cita2'])) 
+            {
+            	$this->db->get('Cita');
+
+				$this->db->from('Cita');
+				$this->db->where('id_login', $data['id']);
+				$query = $this->db->get();
+				$data['citaUsuario'] = $query->result();
+				$cont = 0;
+				foreach ($data['citaUsuario'] as $row) 
+				{
+					if($cont == 1)
+					{
+						$this->db->delete('Cita', array('id' => $row->id));
+					}
+					$cont++;
+					
+				}
+            	
+            }
+
+            if(isset($_GET['cita3'])) 
+            {
+            	$this->db->get('Cita');
+
+				$this->db->from('Cita');
+				$this->db->where('id_login', $data['id']);
+				$query = $this->db->get();
+				$data['citaUsuario'] = $query->result();
+				$cont = 0;
+				foreach ($data['citaUsuario'] as $row) 
+				{
+					if($cont == 2)
+					{
+						$this->db->delete('Cita', array('id' => $row->id));
+					}
+					$cont++;
+					
+				}
+            	
+            }
 
             $this->db->get('ProductoUsuario');
             $this->db->from('ProductoUsuario');
@@ -197,10 +279,11 @@
 	            }
             }
 
-           
+           	
             $this->db->get('ProductoUsuario');
 			$this->db->from('ProductoUsuario');
 			$this->db->where('usuario_id', $data['id']);
+			$this->db->distinct('producto_id');
 			$query = $this->db->get();
 			$data['productoUsuario'] = $query->result();
 
@@ -208,6 +291,15 @@
 			$this->db->from('Producto');
 			$query = $this->db-> get();
 			$data['producto'] = $query->result();
+
+			$query = $this->db->get('Personal');
+            $data['personal'] = $query->result();
+
+           	$this->db->get('Cita');
+			$this->db->from('Cita');
+			$this->db->where('id_login', $data['id']);
+			$query = $this->db->get();
+			$data['cita'] = $query->result();
 
 
             $data['active'] = "perfil";
@@ -237,7 +329,12 @@
 			$data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "cita";
-            $query = $this->db->get('Personal');
+
+            $this->db->get('Personal');
+			$this->db->select('*');
+			$this->db->from('Personal');
+			$this->db->where('estado', 0);
+			$query = $this->db-> get();
             $data['personal'] = $query->result();
             $query = $this->db->get('Horario');
             $data['horario'] = $query->result();
@@ -253,7 +350,29 @@
 		{
 			$data = array();
             $data['user'] = $this->session->userdata('usuario');
+            $data['id'] = $this->session->userdata('id');
             $data['active'] = "contacto";
+
+            if(isset($_POST['submit']))
+            {
+            	$asunto = $this->input->post('asunto');
+            	$email = $this->input->post('email');
+            	$mensaje = $this->input->post('mensaje');
+            	$email = $this->input->post('email');
+            	$nombre = $this->input->post('nombre');
+
+            	$datos['asunto'] = $asunto;
+            	$datos['comentario'] = $mensaje;
+            	$datos['fecha'] = date("Y-m-d");
+            	$datos['email'] = $email;
+            	$datos['nombre'] = $nombre;
+
+            	$insert = $this->File->insertContacto($datos);
+
+            	$statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+
+            }
 			$this->load->view('Head',$data);
 			$this->load->view('Contacto',$data);
 			$this->load->view('Footer2',$data);
@@ -264,6 +383,190 @@
 			$data = array();
             $data['user'] = $this->session->userdata('usuario');
             $data['active'] = "red";
+
+            $this->db->get('login');
+			$this->db->select('id');
+			$this->db->from('login');
+			$this->db->where('usuario', $data['user']);
+			$query = $this->db-> get();
+			foreach ($query->result() as $value) {
+					$data['id'] = $value->id;
+				}
+
+
+
+
+            if(isset($_POST['fileSubmit1']) && !empty($_FILES['files']['name']))
+	        {
+
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif|mp4';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData[$i]['file'] = $fileData['file_name'];
+	                    $uploadData[$i]['fecha'] = date("Y-m-d|H-i-s");
+	                    $uploadData[$i]['asunto'] = $this->input->post('asunto');
+	                    $uploadData[$i]['texto'] = $this->input->post('comentario');
+	                    $uploadData[$i]['id_login'] = $this->session->userdata('id');
+	                    $uploadData[$i]['tipo'] = 1;
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPublicacion($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string()); 
+	        }
+
+	        if(isset($_POST['fileSubmit2']) && !empty($_FILES['files']['name']))
+	        {
+
+	            $filesCount = count($_FILES['files']['name']);
+
+	            for($i = 0; $i < $filesCount; $i++){
+	                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+	                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+	                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+	                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+	                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+
+	                
+	                // File upload configuration
+	                $uploadPath = 'uploads';
+	                $config['upload_path'] = $uploadPath;
+	                $config['max_size'] = '30720';
+	                $config['allowed_types'] = 'jpg|jpeg|png|gif|mp4';
+	                
+	                // Load and initialize upload library
+	                $this->load->library('upload', $config);
+	                $this->upload->initialize($config);
+	                
+	                // Upload file to server
+	                if($this->upload->do_upload('file')){
+	                    // Uploaded file data
+	                    $fileData = $this->upload->data();
+	                    $uploadData[$i]['file'] = $fileData['file_name'];
+	                    $uploadData[$i]['fecha'] = date("Y-m-d|H-i-s");
+	                    $uploadData[$i]['asunto'] = $this->input->post('asunto');
+	                    $uploadData[$i]['texto'] = $this->input->post('comentario');
+	                    $uploadData[$i]['id_login'] = $this->session->userdata('id');
+	                    $uploadData[$i]['tipo'] = 2;
+	                }
+	            }
+	            
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPublicacion($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	            redirect($this->uri->uri_string()); 
+	        }
+
+	        if($this->input->post('fileSubmit3'))
+	        {
+
+	            $uploadData['asunto'] = $this->input->post('asunto');
+	            $uploadData['texto'] = $this->input->post('comentario');
+	            $uploadData['fecha'] = date("Y-m-d|H-i-s");
+				$uploadData['id_login'] = $this->session->userdata('id');
+	            $uploadData['tipo'] = 3;
+
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPublicacion3($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	  
+	        	redirect($this->uri->uri_string());
+	    	}
+
+	    	if($this->input->post('fileSubmit0'))
+	        {
+
+	            $uploadData['id_publicaciones'] = $this->input->get('pu');
+	            print($uploadData['id_publicaciones']);
+	            $uploadData['comentario'] = $this->input->post('comentario');
+	            $uploadData['fecha'] = date("Y-m-d|H-i-s");
+				$uploadData['id_login'] = $this->session->userdata('id');
+	            
+
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPublicacion0($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	  
+	        	redirect($this->uri->uri_string());
+	    	}
+
+	    	if($this->input->post('fileSubmit4'))
+	        {
+
+	            $uploadData['comentario'] = $this->input->post('comentario');
+	            $uploadData['fecha'] = date("Y-m-d|H-i-s");
+				$uploadData['id_login'] = $this->session->userdata('id');
+	            
+
+	            if(!empty($uploadData)){
+	                // Insert files data into the database
+	                $insert = $this->File->insertPublicacion4($uploadData);
+	                
+	                // Upload status message
+	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+	                $this->session->set_flashdata('statusMsg',$statusMsg);
+	            }
+	  
+	        	redirect($this->uri->uri_string());
+	    	}
+
+	        
+			$query = $this->db->get('login');
+			$data['login'] = $query->result();
+			$query = $this->db->get('Comentario');
+			$data['comentario'] = $query->result();
+
+
+			$this->db->get('Publicaciones');
+			$this->db->select('*');
+			$this->db->from('Publicaciones');
+			$this->db->order_by("id", "desc");
+			$query = $this->db-> get();
+			$data['publicaciones'] = $query->result();
+
 			$this->load->view('Head',$data);
 			$this->load->view('RedSocial',$data);
 			$this->load->view('Footer2',$data);
@@ -467,100 +770,167 @@
 			);
 
 			/////Aqui guardar el usuario y email de la persona iniciada seccion/////
-			$usuarioCita = 24;
-			$email = "hola";
-			$explode = explode('|', $slots_booked);
-			$num = count($explode) -2;
+			$usuarioCita = $this->session->userdata('id');
 
-			
-
-				if(strlen($slots_booked) > 0 && $email!= null) 
-				{
-					if($tipo ==1)
-					{
-						
-
-						$data = array(
-					        'fecha' => $booking_date,
-					        'hora' => $explode[$num],
-					        'id_login' => $usuarioCita,
-					        'id_personal' => $tipo
-					);
-
-					$this->db->insert('Cita', $data);
-
-					}
-
-					if($tipo ==2)
-					{
-						
-						
-
-						$data = array(
-					        'fecha' => $booking_date,
-					        'hora' => $explode[$num],
-					        'id_login' => $usuarioCita,
-					        'id_personal' => $tipo
-					);
-
-					$this->db->insert('Cita', $data);
-
-					}
-
-					if($tipo ==3)
-					{
-						
-						
-
-						$data = array(
-					        'fecha' => $booking_date,
-					        'hora' => $explode[$num],
-					        'id_login' => $usuarioCita,
-					        'id_personal' => $tipo
-					);
-
-					$this->db->insert('Cita', $data);
-
-					}	
-
-					if($tipo ==4)
-					{
-						
-						
-
-						$data = array(
-					        'fecha' => $booking_date,
-					        'hora' => $explode[$num],
-					        'id_login' => $usuarioCita,
-					        'id_personal' => $tipo
-					);
-
-					$this->db->insert('Cita', $data);
-
-					}		
-				}
-			 // Close foreach
-
-				
-
-
-			/*if($this->session->userdata('logueado'))
+			$fechaActual = date('Y-m-d');
+			$q = 'SELECT id FROM Cita WHERE id_login = ? and fecha > ?';
+			$query=$this->db->query($q, array($usuarioCita,$fechaActual));
+			$citas = $query->result_array();
+			$i=0;
+			foreach ($citas as $row) 
 			{
+			 	$i++;
+			}
+
+			if($i<3)
+			{
+
 				
+
+
+
+				$q = $this->db->query('SELECT email FROM login WHERE id = ?',$usuarioCita);
+				$data = $q->result_array();
+				$email = $data[0]['email'];  
+				$datosBody['usuario'] = $this->session->userdata('usuario');
+				//$email = "alexpinerotfg@gmail.com";
+				//print($email);
+				
+
+				$explode = explode('|', $slots_booked);
+				$num = count($explode) -2;
+
+				$q = 'SELECT id FROM Cita WHERE hora = ? and fecha = ?';
+				$query=$this->db->query($q, array($explode[$num],$booking_date));
+				$numCitas = $query->num_rows();
+
+				if($numCitas>0)
+				{
+					$data['user'] = $this->session->userdata('usuario'); 
+					$this->load->view('NoConfirmacionFree',$data);
+				}
+				else
+				{
+					if(strlen($slots_booked) > 0) 
+					{
+						if($tipo ==1)
+						{
+							$data = array(
+						        'fecha' => $booking_date,
+						        'hora' => $explode[$num],
+						        'id_login' => $usuarioCita,
+						        'id_personal' => $tipo
+						);
+
+						$this->db->insert('Cita', $data);
+
+						}
+
+						if($tipo ==2)
+						{
+				
+							$data = array(
+						        'fecha' => $booking_date,
+						        'hora' => $explode[$num],
+						        'id_login' => $usuarioCita,
+						        'id_personal' => $tipo
+						);
+
+						$this->db->insert('Cita', $data);
+
+						}
+
+						if($tipo ==3)
+						{
+							
+							
+
+							$data = array(
+						        'fecha' => $booking_date,
+						        'hora' => $explode[$num],
+						        'id_login' => $usuarioCita,
+						        'id_personal' => $tipo
+						);
+
+						$this->db->insert('Cita', $data);
+
+						}	
+
+						if($tipo ==4)
+						{
+							
+							
+
+							$data = array(
+						        'fecha' => $booking_date,
+						        'hora' => $explode[$num],
+						        'id_login' => $usuarioCita,
+						        'id_personal' => $tipo
+						);
+
+						$this->db->insert('Cita', $data);
+
+						}		
+					}
+
+					$configGmail = array(
+				         'protocol' => 'smtp',
+					     'smtp_host' => 'ssl://smtp.gmail.com',
+						 'smtp_port' => 465,
+						 'smtp_user' => 'alexpinerotfg@gmail.com',
+						 'smtp_pass' => '123456a$',
+						 'mailtype' => 'html',
+						 'charset' => 'utf-8',
+						 'newline' => "\r\n",
+						 );
+
+					$datosBody['fecha'] = $booking_date;
+					$datosBody['hora'] = $explode[$num];
+
+
+	            	$body = $this->load->view('confirmationCita.html',$datosBody,TRUE);
+					$this->email->initialize($configGmail);
+					$this->email->from('alexpinerotfg@gmail.com', 'AlexPiñero');
+					$this->email->to($email);
+					$this->email->subject('Cita confirmada');
+					$this->email->message($body);
+					$this->email->send();
+
+
+				 // Close foreach
+
+					
+
+
+				/*if($this->session->userdata('logueado'))
+				{
+					
+				}
+				else
+				{
+					$citaPendiente = TRUE;
+					$data = array();
+					$data['citaPendiente'] = $citaPendiente;
+					$this->load->view('inicioSesion',$data);
+				}*/
+				sleep(5);
+				
+				$data['user'] = $this->session->userdata('usuario'); 
+				$this->load->view('Confirmacion',$data);
+
+				}
+
+				
+
+					
+
 			}
 			else
 			{
-				$citaPendiente = TRUE;
-				$data = array();
-				$data['citaPendiente'] = $citaPendiente;
-				$this->load->view('inicioSesion',$data);
-			}*/
-			sleep(5);
-			$q = $this->db->query('SELECT usuario FROM login WHERE id = ?',$usuarioCita);
-			$data = $q->result_array();
-			$usuario = $data[0]['usuario'];
-			$data['user'] = $this->session->userdata('usuario'); 
-			$this->load->view('Confirmacion',$data);
+				$data['user'] = $this->session->userdata('usuario'); 
+				$this->load->view('NoConfirmacion',$data);
+			}
+			
 		}
 
         function prueba2()
@@ -571,6 +941,8 @@
         public function olvidePassword()
 		{
 			$email = $this->input->post("email");
+			$data = array();
+			$data['email'] = $email;
 
 			$query = $this->db->get_where('login', array('email' => $email));
 
@@ -580,8 +952,8 @@
 			         'protocol' => 'smtp',
 				     'smtp_host' => 'ssl://smtp.gmail.com',
 					 'smtp_port' => 465,
-					 'smtp_user' => 'machavesperez@gmail.com',
-					 'smtp_pass' => 'super200R9$',
+					 'smtp_user' => 'alexpinerotfg@gmail.com',
+					 'smtp_pass' => '123456a$',
 					 'mailtype' => 'html',
 					 'charset' => 'utf-8',
 					 'newline' => "\r\n",
@@ -590,9 +962,9 @@
 
             	$body = $this->load->view('forgot_email.html',$data,TRUE);
 				$this->email->initialize($configGmail);
-				$this->email->from('machavesperez@gmail.com', 'Miguel');
+				$this->email->from('alexpinerotfg@gmail.com', 'AlexPiñero');
 				$this->email->to($email);
-				$this->email->subject('Prueba');
+				$this->email->subject('Recuperar Password');
 				$this->email->message($body);
 				$this->email->send();
 
@@ -608,23 +980,34 @@
 
 		function newPassword()
 		{
+
+			$email = $this->input->get('email');
+			$data = array();
+			$data['email'] = $email;
 			
-			$this->load->view('newPassword');
+			$this->load->view('newPassword',$data);
 		    
 		}
 
 		function newPassword2()
 		{
-			
+			$email = $this->input->post('email');
 			$password = $this->input->post("password");
 			$password2 = $this->input->post("password2");
 
 			if($password == $password2)
 			{
+
 				$hash = md5($password);
 				$this->db->set('password',$hash);
-				$this->db->where('id',24);
+				$this->db->where('email',$email);
 				$this->db->update('login');
+				$jsondata = array();
+				$jsondata['redirect_url'] = base_url('/Gestion/inicio');
+				$jsondata['status'] = "success";
+				echo json_encode($jsondata);
+                exit();
+				
 				
 			}
 			else
@@ -703,8 +1086,8 @@
 			         'protocol' => 'smtp',
 				     'smtp_host' => 'ssl://smtp.gmail.com',
 					 'smtp_port' => 465,
-					 'smtp_user' => 'machavesperez@gmail.com',
-					 'smtp_pass' => 'super200R9$',
+					 'smtp_user' => 'alexpinerotfg@gmail.com',
+					 'smtp_pass' => '123456a$',
 					 'mailtype' => 'html',
 					 'charset' => 'utf-8',
 					 'newline' => "\r\n",
@@ -735,9 +1118,9 @@
 					
 
 			$this->email->initialize($configGmail);
-			$this->email->from('machavesperez@gmail.com', 'Miguel');
+			$this->email->from('alexpinerotfg@gmail.com', 'AlexPiñero');
 			$this->email->to($email);
-			$this->email->subject('Prueba');
+			$this->email->subject('Confirmación de Cuenta');
 			$this->email->message($body);
 			$this->email->send();
 

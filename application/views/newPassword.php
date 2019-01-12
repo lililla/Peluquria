@@ -54,16 +54,21 @@
         function myFunction() {
 
             event.preventDefault();
+            var url = window.location.href;
+            var email = location.search.split('email=')[1]
+            //var email = url.searchParams.get("email");
+            //document.write(email);
 
 
         var password  = $("#password").val();
         var password2  = $("#password2").val();
+        
 
         $.ajax({
             url : "<?php echo base_url('index.php/Gestion/newPassword2');?>",
             type: 'POST',
             dataType: "json",
-            data : {'password':password,'password2':password2},
+            data : {'password':password,'password2':password2, 'email':email},
             success: function(respuesta) 
             {
                 if(respuesta.status == "success")
@@ -207,6 +212,7 @@
                                 <label>Verificación</label>
                                 <input type="password" name="password2" id="password2" required />
                                 <br></br>
+                                <p id="error-msg"></p>
                                 <div class="action_btns">
                                     <div class="one_half"><a href="#" class="btn back_btn" ><i class="fa fa-angle-double-left"></i> Salir</a></div>
                                     <div class="one_half last"><button class="btn btn_red" type="submit" name="registrar" id="registrar">Recuperar</button></div>

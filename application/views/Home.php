@@ -3,23 +3,50 @@
   
   <body>
 
+    <style type="text/css">
+
+
+      .img-container img
+    {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        
+    }
+
+    .imagen-servicio img
+    {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+        
+    }
+    </style>
+
   	
     <!-- END nav -->
     
-    <div class="hero-wrap js-fullheight" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/home.jpeg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap js-fullheight" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/home.jpg');background-size: 1500px 1000px;" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
+        
+        <div  class="col-md-6 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+            <!--<h3 style="padding-top: 100px;text-align: center; font-family: 'Bradley Hand';" class ="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Peluquería </h3>
+            <h1 class="mb-alex" style = "color:#0000FF;text-align: center;" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Alex Piñero</h1>
+            <h1 class="mb-style" style = "line-height: 50%; font-size:20px; color:#E5C975; text-align: center;" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Style for men<!--<a href="#">Colorlib.com</a>--></h1>
+            <!--<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-primary px-4 py-3">Book an Appointment</a></p> -->
+          </div>
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
         	<!--<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
         		<span class="icon-play"></a>
         	</a> -->
-          <div class="col-md-6 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-          	<h3 class ="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Peluquería </h3>
-            <h1 class="mb-alex" style = "color:#0000FF" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Alex Piñero</h1>
-            <h1 class="mb-style" style = "line-height: 50%; font-size:20px;" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Style for men<!--<a href="#">Colorlib.com</a>--></h1>
-            <!--<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-primary px-4 py-3">Book an Appointment</a></p> -->
-          </div>
+          
         </div>
+      
       </div>
     </div>
 
@@ -32,7 +59,7 @@
 	    					<div class="icon"><span class="fa fa-phone"></span></div>
 	    					<div class="text">
 	    						<h3>956-56-56-56</h3>
-	    						<p>A small river named Duden flows</p>
+	    						<p>Estamos a su entera disposición</p>
 	    					</div>
 	    				</div>
 	    				<div class="col-md-4 d-flex ftco-animate">
@@ -45,8 +72,8 @@
 	    				<div class="col-md-4 d-flex ftco-animate">
 	    					<div class="icon"><span class="fas fa-clock"></span></div>
 	    					<div class="text">
-	    						<h3>Horario</h3>
-	    						<p>Lunes-Viernes: 8:00am - 9:00pm</p>
+	    						<h3>Horarios</h3>
+	    						<p>Lunes-Viernes: 8:00am - 21:00pm</p>
                                 <p>Sabado: 8:00am - 15:00pm</p>
 	    					</div>
 	    				</div>
@@ -54,10 +81,10 @@
 	    		</div>
 	    		<div class="social pl-md-5 p-4">
 	    			<ul class="social-icon">
-              <li class="ftco-animate"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
+              <li class="ftco-animate"><a target="_blank" href="https://www.facebook.com/alex.pineropeluqueria"><span class="fab fa-facebook-f"></span></a></li>
+              <li class="ftco-animate"><a target="_blank" href="https://twitter.com/alexstyleformen?lang=es"><span class="fab fa-twitter"></span></a></li>
+              <li class="ftco-animate"><a target="_blank" href="https://www.instagram.com/apstyleformen/?hl=es"><span class="fab fa-instagram"></span></a></li>
+              <li class="ftco-animate"><a target="_blank" href="https://www.google.com/search?ei=t5g3XNLWHdSZjLsP2aeA2AY&q=alex%20pi%C3%B1ero%20stylo%20for%20men&oq=alex+pi%C3%B1ero+st&gs_l=psy-ab.3.0.35i39.5802.8613..9890...0.0..1.751.4064.0j7j4j5-2j1......0....1..gws-wiz.......0i131j0j0i131i67j0i67j0i20i263j0i3j0i22i30j38.m-BukV6me4k&npsic=0&rflfq=1&rlha=0&rllag=36443480,-6173091,3347&tbm=lcl&rldimm=1169509217949407326&ved=2ahUKEwj25bTE9ePfAhXC1-AKHZ-HDwUQvS4wAXoECAAQKg&rldoc=1&tbs=lrf:!2m1!1e2!2m1!1e3!3sIAE,lf:1,lf_ui:2"><span class="fab fa-google-plus-g"></span></a></li>
             </ul>
 	    		</div>
     		</div>
@@ -68,7 +95,7 @@
     	<div class="container">
     		<div class="row justify-content-center mb-4">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Bienvenido a <span>Alex Piñero</span> tu salón de peluqueria</h2>
+            <h2 class="mb-4">Bienvenido a <span>Alex Piñero</span></h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
           </div>
         </div>
@@ -87,7 +114,10 @@
                 </div>
     		<div class="row justify-content-center">
     			<div class="col-md-8 text-center ftco-animate">
-    				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+    				<p>Bienvenido a la Peluquería Alex Piñero Style For Men.
+              Si has llegado hasta aquí, es que necesitas un cambio de imagen, un arreglo puntual para un evento especial, o tal vez, has tropezado con nosotros por casualidad.
+              En cualquiera de los casos, esperamos que te encuentres en nuestro salón como en casa.
+              En Alex Piñero, creemos que cortarse el pelo o arreglarse la barba debe ser, y es; mucho más que "quitarse pelo". Se trata de un ritual, un momento de buena conversación, en un ambiente relajado, masculino; que le aporte valor añadido. Por eso, te recibiremos con el mejor ambiente, y por supuesto, saldrás con el corte de pelo, afeitado, o arreglo que estabas buscando.</p>
     			</div>
     		</div>
     	</div>
@@ -97,14 +127,13 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 style = "color:#FFF;" class="mb-4">Noticias</h2>
+            <h2 style = "color:#FFF;" class="mb-4">Últimas noticias</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mt-5">Os mostramos la actualidad de nuestra peluquería, publicaremos en esta session todas las noticias, eventos, promociones, etc... No te descuides.</p>
           </div>
         </div>
         <div class="row d-flex">
-          
-
+  
 
               <?php
               setlocale(LC_ALL,"es_ES");
@@ -217,39 +246,41 @@
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Nuestro Servicio</h2>
+            <h2 class="mb-4">Nuestros Servicios</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mt-5">.</p>
           </div>
         </div>
     		<div class="row">
            <div class="col-md-4 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/calendar.png');">
+              <div class="imagen-servicio">
+              <a class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/overtime.png');background-size: 300px 250px;">
               </a>
+            </div>
               <div class="text py-4 d-block">
-                <h3 class="heading mt-2" ><a href="#" style = "color:#000;">Tu cita online</a></h3>
-                <p>Pide tu cita online sin tener que coger el teléfono.</p>
+                <h3 class="heading mt-2" ><a style = "color:#000;text-align: center;">Cita online</a></h3>
+                <p>Ya puedes pedir tu cita a travez de la web sin tener que llamar por teléfono.</p>
               </div>
             </div>
           </div>
           <div class="col-md-4 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/producto.png');">
+              <a class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/carrito.png');background-size: 300px 250px;">
               </a>
               <div class="text py-4 d-block">
-                <h3 class="heading mt-2" ><a href="#" style = "color:#000;">Nuestra tienda online</a></h3>
-                <p>Ahora podras consultar y comprar nuestro catalogo de producto online.</p>
+                <h3 class="heading mt-2" ><a style = "color:#000;">Tienda online</a></h3>
+                <p>Ahora podras consultar y comprar nuestros productos a tráves de nuestra tienda online.</p>
               </div>
             </div>
           </div>
           <div class="col-md-4 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/corte.jpg');">
+              <a class="block-20" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/redSocial.png');background-size: 450px 400px;">
               </a>
               <div class="text py-4 d-block">
-                <h3 class="heading mt-2" ><a href="#" style = "color:#000;">Corte + Lavado + Peinado</a></h3>
-                <p>Sal de tu peluquería disfrutando de tu nuevo look sin pasar por casa.</p>
+                <h3 class="heading mt-2" ><a style = "color:#000;">Red Social</a></h3>
+                <p>Comparte tus fotos o vídeos en nuestra Red Social.</p>
               </div>
             </div>
           </div>    
@@ -264,7 +295,7 @@
           <div class="col-md-7 heading-section ftco-animate text-center">
             <h2 style = "color:#FFF;" class="mb-4">Conocenos</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mt-5">En Alex Piñero contamos con los mejores peluqueros, en esta session os mostramos cada uno de nuestros profecionales.</p>
           </div>
         </div>
     	</div>
@@ -345,9 +376,9 @@
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
           <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2 class="mb-4">Servicio &amp; Precios</h2>
+            <h2 class="mb-4">Servicios &amp; Precios</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mt-5">Aquí os mostramos nuestra carta de servicios, con unos costes muy razonables a nuestro diseño.</p>
           </div>
         </div>
         <div class="row">
@@ -430,7 +461,7 @@
                 <div class="block-18 text-center">
                   <div class="text">
                     <div class="icon"><span class="fa fa-shopping-cart  "></span></div>
-                    <strong class="number" data-number="900">0</strong>
+                    <?php echo"<strong class='number' data-number='".$TotalProducto."'>0</strong>";?>
                     <span>Compra Gestionada</span>
                   </div>
                 </div>

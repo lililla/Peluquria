@@ -1,14 +1,14 @@
 <script src="<?php echo base_url() ?>/assets/js/Galeria/jssor.slider.min.js" type="text/javascript"></script>
 
 
-<div class="hero-wrap" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/bg_2.jpg');" data-stellar-background-ratio="0.5">
+<div class="hero-wrap" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/galeria.jpg');background-size: 1400px 900px;" data-stellar-background-ratio="0.5">
 	      <div class="overlay"></div>
 	      <div class="container">
 	        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
-	          <div class="col-md-6 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+	          <!--<div class="col-md-6 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 	          	<h1 class="mb-3 mt-5 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Gallery</h1>
 	            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Gallery</span></p>
-	          </div>
+	          </div>-->
 	        </div>
 	      </div>
 	    </div>
@@ -17,16 +17,16 @@
 	    	<div class="container">
 	    		<div class="row justify-content-center mb-5 pb-3">
 	          <div class="col-md-7 heading-section ftco-animate text-center">
-	            <h2 class="mb-4">Our Gallery</h2>
+	            <h2 class="mb-4">Nuestra Galeria</h2>
 	            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-	            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+	            <p class="mt-5">En esta session os mostramos una colección de galerías de imágenes con animaciones fantásticas de nuestro salón.</p>
 	          </div>
 	        </div>
 	    	</div>
 	    	<div class="container-wrap">
 	    		<div class="row no-gutters">
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-1.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/1.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
@@ -34,19 +34,19 @@
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-3.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/3.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-4.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-8.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-5.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-0.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-6.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/6.jpg');">
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
@@ -54,7 +54,7 @@
 							</a>
 						</div>
 						<div class="col-md-3 ftco-animate">
-							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/gallery-8.jpg');">
+							<a class="gallery img d-flex align-items-center" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/8.jpg');">
 							</a>
 						</div>
 	        </div>
@@ -147,14 +147,14 @@
 
         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:600px;height:300px;overflow:hidden;">
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/002.jpg" />
-                <div data-u="caption" data-t="0" style="position:absolute;top:320px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">mobile ready, touch swipe</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/16.jpg" />
+                <div data-u="caption" data-t="0" style="position:absolute;top:320px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">Sabes de moda o no sabes</div>
             </div>
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/007.jpg" />
-                <div data-u="caption" data-t="1" data-3d="1" style="position:absolute;top:-50px;left:125px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">time lined layer animation</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/13.jpg" />
+                <div data-u="caption" data-t="1" data-3d="1" style="position:absolute;top:-50px;left:125px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">La alegría de vestir es un arte</div>
             </div>
-            <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
+            <!--<div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
         		<div class="staff">
       				<div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/person_4.jpg');"></div>
       				<div class="info text-center">
@@ -165,34 +165,34 @@
 	        			</div>
       				</div>
         		</div>
-        	</div>
+        	</div>-->
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/004.jpg" />
-                <div data-u="caption" data-t="3" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">responsive, scale smoothly</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/11.jpg" />
+                <div data-u="caption" data-t="3" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">No hago moda, soy moda</div>
             </div>
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/005.jpg" />
-                <div data-u="caption" data-t="4" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.6);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">image, text, and custom layers</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/12.jpg" />
+                <div data-u="caption" data-t="4" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.6);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">No diseño ropa, diseño sueños</div>
             </div>
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/006.jpg" />
-                <div data-u="caption" data-t="5" style="position:absolute;top:30px;left:600px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">tons of transition type</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/13.jpg" />
+                <div data-u="caption" data-t="5" style="position:absolute;top:30px;left:600px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">Para ser irreemplazable, uno debe ser diferente</div>
             </div>
             <div>
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/009.jpg" />
-                <div data-u="caption" data-t="6" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">visual slider maker</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/14.jpg" />
+                <div data-u="caption" data-t="6" style="position:absolute;top:30px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">Hazlo simple, pero significativo</div>
             </div>
             <div data-b="0">
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria980x380/008.jpg" />
-                <div data-u="caption" data-t="7" style="position:absolute;top:-50px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">play in and play out</div>
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/15.jpg" />
+                <div data-u="caption" data-t="7" style="position:absolute;top:-50px;left:30px;width:350px;height:30px;z-index:0;background-color:rgba(235,81,0,0.5);font-size:20px;color:#ffffff;line-height:30px;text-align:center;">Amo ser un diseñador de moda</div>
             </div>
             <div data-p="112.50">
-                <img data-u="image" src="<?php echo base_url() ?>/assets/img/980x380/011.jpg" />
+                <img data-u="image" src="<?php echo base_url() ?>/assets/img/Geleria/16.jpg" />
                 <div data-u="caption" data-t="8" data-3d="1" style="position:absolute;top:25px;left:150px;width:250px;height:250px;z-index:0;background-color:rgba(40,177,255,0.6); overflow:hidden;">
-                    <div data-u="caption" data-t="9" style="position:absolute;top:100px;left:25px;width:200px;height:50px;z-index:0;font-size:24px;line-height:50px;">A Child Layer</div>
+                    <!--<div data-u="caption" data-t="9" style="position:absolute;top:100px;left:25px;width:200px;height:50px;z-index:0;font-size:24px;line-height:50px;"></div>-->
                 </div>
             </div>
-            <div data-p="112.50">
+            <!--<div data-p="112.50">
                 <img data-u="image" src="<?php echo base_url() ?>/assets/img/Galeria/980x380/010.jpg" />
                 <div data-u="caption" data-t="10" data-3d="1" style="position:absolute;top:25px;left:100px;width:250px;height:250px;z-index:0;background-color:rgba(40,177,255,0.6);">
                     <div style="margin: 15px; font-size: 20px;">
@@ -212,7 +212,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div id="progress-element" data-u="progress" style="position: absolute; left: 0; bottom: 20px; width: 0%; height: 5px; background-color: rgba(255,255,255,0.7); z-index: 100;"></div>
         </div>
 
@@ -246,7 +246,7 @@
           <div class="col-md-7 heading-section ftco-animate text-center">
             <h2 class="mb-4">Nuestros Estilos</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Os mostramos nuestros estilos y diseño más originales </p>
+            <p class="mt-5">Os mostramos nuestros estilos y diseño más originales,  </p>
           </div>
         </div>
         <div class="row">
@@ -258,7 +258,7 @@
                 $i = 0;
                 echo"<div class='col-lg-3 d-flex mb-sm-4 ftco-animate'>
                   <div class='staff'>";?>
-                    <div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/assets/img/Galeria/person_1.jpg');"></div>
+                    <div class="img mb-4" style="background-image: url('<?php echo base_url() ?>/uploads/<?php print($row->imagen)?>');"></div>
                     <?php echo"<div class='info text-center'>
                       <h3>";
                       $i = 0;
@@ -324,7 +324,7 @@
         		</div>
         	</div>-->
         </div>
-        <div class="row mt-5">
+        <!--<div class="row mt-5">
 	          <div class="col text-center">
 	            <div class="block-27">
 	              <ul>
@@ -338,7 +338,7 @@
 	              </ul>
 	            </div>
 	          </div>
-	        </div>
+	        </div>-->
       </div>
     </section>
 

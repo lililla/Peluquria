@@ -1,9 +1,13 @@
   <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Trim - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Alex Piñero Style For Men</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Last-Modified" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+  <meta http-equiv="Pragma" content="no-cache">
     
     <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -39,6 +43,12 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script type="text/javascript" src="<?php echo base_url() ?>/assets/js/Modal/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url() ?>/assets/js/Modal/jquery.leanModal.min.js"></script>
+    <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/jquery-2.2.3.min.js"></script>
+  <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/bootstrap.min.js"></script>
+  <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/jquery.mycart.js?n=1"></script>
+  <script src="env.js?ver=1.1"></script>  
+<script type="text/javascript" src="simpleLoader.js?ver=1.1"></script>  
+<script type="text/javascript" src="init.js?ver=1.1"></script>
         
 
 
@@ -46,18 +56,45 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.html">Alex Piñero.</a>
+          <a class="navbar-brand" href="<?php echo site_url() ?>Gestion/inicio">Alex Piñero.</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="fas fa-bars"></span> Menu
           </button>
 
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
+                <?php
+              if($user == "AlexPiñero")
+              {?>
+              <li <?php if($active == "red"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>GestionAdmin/Admin" class="nav-link">Administrador</a></li>
+              <?php }?>
+
               <li <?php if($active == "home"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/inicio" class="nav-link">Home</a></li>
-              <li<?php if($active == "cita"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/cita" class="nav-link">Cita</a></li>
-              <li <?php if($active == "galeria"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Galeria" class="nav-link">Galerias</a></li>            
+              <?php
+              if($user != false)
+              {?>
+                    <li<?php if($active == "cita"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/cita" class="nav-link">Cita</a></li>
+              <?php }?>
+              
+              <li <?php if($active == "galeria"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Galeria" class="nav-link">Galerias</a></li>
+
+              <?php
+              if($user != false)
+              {?>
               <li <?php if($active == "producto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Producto" class="nav-link">Productos</a></li>
-              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link">Contacto</a></li> 
+              <?php }?>
+
+
+
+              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link">Contacto</a></li>
+
+
+              <?php
+              if($user != false)
+              {?>
+              <li <?php if($active == "red"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Red" class="nav-link">RedSocial</a></li>
+
+              <?php }?>  
               <?php
               if($user == false)
               {?>
@@ -74,11 +111,7 @@
                 <!--<div style="float: right; cursor: pointer;">
                     <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
                 </div>-->
-                <li class="nav-item"><div style="float: right; cursor: pointer; position: absolute;
-    top: 25px; ">
-                    <span style="color:orange;" class="fas fa-shopping-cart fa-2x  my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
-                </div></li>
-                
+               
 
                 
             </ul>
@@ -380,14 +413,14 @@
   </style>
 
 
-<div class="hero-wrap js-fullheight" style="background-image: url('<?php echo base_url() ?>/assets/img/Home/bg_2.jpg');" data-stellar-background-ratio="0.5">
+<div class="hero-wrap js-fullheight" style="background-image: url('<?php echo base_url() ?>/assets/img/Producto/producto.jpg');background-size: 1350px 800px;" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
           <!--<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
             <span class="icon-play"></a>
           </a> -->
-          <div class="col-md-6 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+          <!--<div class="col-md-6 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
             <h3 class ="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Peluquería </h3>
             <h1 class="mb-alex" style = "color:#0000FF" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Alex Piñero</h1>
             <h1 class="mb-style" style = "line-height: 50%; font-size:20px;" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Style for men<!--<a href="#">Colorlib.com</a>--></h1>
@@ -404,9 +437,9 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Our Shop</h2>
+            <h2 class="mb-4">Nuestros Productos</h2>
             <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-            <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p class="mt-5">A continuación os presentamos nuestro catálogo de producto de nuestro salón, si es el producto que estabas buscando, podrás adquirirlo y efectuar el pago online. A que esperar, llena tu carrito antes de que se agoten.</p>
           </div>
         </div>
         <div class="row">
@@ -565,7 +598,7 @@
             </div>
           </div>-->
         </div>
-        <div class="row mt-5">
+        <!--<div class="row mt-5">
             <div class="col text-center">
               <div class="block-27">
                 <ul>
@@ -579,13 +612,11 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </div>-->
       </div>
     </section>
 
-  <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/jquery-2.2.3.min.js"></script>
-  <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/bootstrap.min.js"></script>
-  <script type='text/javascript' src="<?php echo base_url() ?>/assets/js/Cart/jquery.mycart.js"></script>
+  
   <script type="text/javascript">
     $(function () {
 

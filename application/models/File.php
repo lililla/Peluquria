@@ -32,6 +32,26 @@ class File extends CI_Model{
         return $insert?true:false;
     }
 
+    public function insertPublicacion($data = array()){
+        $insert = $this->db->insert_batch('Publicaciones',$data);
+        return $insert?true:false;
+    }
+
+    public function insertPublicacion3($data = array()){
+        $insert = $this->db->insert('Publicaciones',$data);
+        return $insert?true:false;
+    }
+
+    public function insertPublicacion0($data = array()){
+        $insert = $this->db->insert('Comentario',$data);
+        return $insert?true:false;
+    }
+
+    public function insertContacto($data = array()){
+        $insert = $this->db->insert('Contacto',$data);
+        return $insert?true:false;
+    }
+
     public function insertPersonal($data = array()){
         $insert = $this->db->insert_batch('Personal',$data);
         return $insert?true:false;

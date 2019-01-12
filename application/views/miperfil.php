@@ -246,7 +246,7 @@
 
         <div id="popup2" class="overlay">
             <div class="popupqr">
-                    <img src="<?php echo base_url() ?>/temp/test.png">
+                    <img width="50px"  src="<?php echo base_url() ?>/temp/test.png">
                     <a class="close" href="#">&times;</a>
                 </div>
             </div>

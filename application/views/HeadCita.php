@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  	<title>Trim - Free Bootstrap 4 Template by Colorlib</title>
+  	<title>Alex Piñero Style For Men</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -43,18 +43,45 @@
   <body>
   	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Alex Piñero.</a>
+	      <a class="navbar-brand" href="<?php echo site_url() ?>Gestion/inicio">Alex Piñero.</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span  style="font-size: 20px;" class="fas fa-bars" style="font-size: 20px;"></span><span class="menu"> Menu</span>
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li <?php if($active == "home"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/inicio" class="nav-link" >Home</a></li>
-	          <li<?php if($active == "cita"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/cita" class="nav-link" >Cita</a></li>
-	          <li <?php if($active == "galeria"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Galeria" class="nav-link" >Galerias</a></li>	          
-              <li <?php if($active == "producto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Producto" class="nav-link" >Productos</a></li>
-              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link" >Contacto</a></li> 
+            <ul class="navbar-nav ml-auto">
+                <?php
+              if($user == "AlexPiñero")
+              {?>
+              <li <?php if($active == "red"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>GestionAdmin/Admin" class="nav-link">Administrador</a></li>
+              <?php }?>
+
+              <li <?php if($active == "home"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/inicio" class="nav-link">Home</a></li>
+              <?php
+              if($user != false)
+              {?>
+                    <li<?php if($active == "cita"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/cita" class="nav-link">Cita</a></li>
+              <?php }?>
+              
+              <li <?php if($active == "galeria"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Galeria" class="nav-link">Galerias</a></li>
+
+              <?php
+              if($user != false)
+              {?>
+              <li <?php if($active == "producto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Producto" class="nav-link">Productos</a></li>
+              <?php }?>
+
+
+
+              <li <?php if($active == "contacto"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Contacto" class="nav-link">Contacto</a></li>
+
+
+              <?php
+              if($user != false)
+              {?>
+              <li <?php if($active == "red"){?> class="nav-item active" <?php } else { ?> class="nav-item" <?php } ?>><a href="<?php echo site_url() ?>Gestion/Red" class="nav-link">RedSocial</a></li>
+
+              <?php }?>  
               <?php
               if($user == false)
               {?>
@@ -68,9 +95,14 @@
               
         <?php }?>
 
+                <!--<div style="float: right; cursor: pointer;">
+                    <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><span class="badge badge-notify my-cart-badge"></span></span>
+                </div>-->
+               
+
                 
-	        </ul>
-	      </div>
+            </ul>
+          </div>
 	    </div>
 	  </nav>
 

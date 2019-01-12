@@ -203,12 +203,16 @@
     var classProductTotal = 'my-product-total';
     var classAffixMyCartIcon = 'my-cart-icon-affix';
     var total = 0;
-    var producto=[];
+    var producto = [];
+    var getUrl = window.location;
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
 
     var products = ProductManager.getAllProducts();
       $.each(products, function () {
         total = this.quantity * this.price;
         producto.push(this.id);
+
       });
 
 
@@ -223,20 +227,21 @@
     $cartBadge.text(ProductManager.getTotalQuantity());
 
     if (!$("#" + idCartModal).length) {
+      
       $('body').append(
         '<div class="modal fade" id="' + idCartModal + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">' +
         '<div class="modal-dialog" role="document">' +
         '<div class="modal-content">' +
         '<div class="modal-header">' +
         
-        '<h4 class="modal-title" id="myModalLabel" style="color:black;"><span style="color:orange;" class="fas fa-shopping-cart fa-1x"></span> My Cart</h4>' +
+        '<h4 class="modal-title" id="myModalLabel" style="color:black;"><span style="color:orange;" class="fas fa-shopping-cart fa-1x"></span> Mi Carrito</h4>' +
         '</div>' +
         '<div class="modal-body">' +
         '<table class="table table-hover table-responsive" id="' + idCartTable + '"></table>' +
         '</div>' +
         '<div class="modal-footer">' +
-        '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>' +
-        '<a target="_blank" href="http://192.168.1.38/Peluqueria/Gestion/buy?id-product='+producto+'&priceTotal='+total+'" class="btn btn-primary" >Checkout</input>' +
+        '<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>' +
+        '<a target="_blank" href="'+baseUrl+'/Gestion/buy?id-product='+producto+'&priceTotal='+total+'" class="btn btn-primary" >Comprar</input>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -255,10 +260,10 @@
           '<tr title="' + this.summary + '" data-id="' + this.id + '" data-price="' + this.price + '">' +
           '<td class="text-center" style="width: 30px;"><img width="30px" height="30px" src="' + this.image + '"/></td>' +
           '<td>' + this.name + '</td>' +
-          '<td title="Unit Price" class="text-right">' + MathHelper.getRoundedNumber(this.price) + options.currencySymbol + '</td>' +
-          '<td title="Quantity"><input type="number" min="1" style="width: 70px;" class="' + classProductQuantity + '" value="' + this.quantity + '"/></td>' +
+          '<td title="Precio por unidad" class="text-right">' + MathHelper.getRoundedNumber(this.price) + options.currencySymbol + '</td>' +
+          '<td title="Cantidad"><input type="number" min="1" style="width: 70px;" class="' + classProductQuantity + '" value="' + this.quantity + '"/></td>' +
           '<td title="Total" class="text-right ' + classProductTotal + '">' + MathHelper.getRoundedNumber(total) + options.currencySymbol + '</td>' +
-          '<td title="Remove from Cart" width="30px" height="30px" class="text-center" style="width: 30px;"><button style="background-color: red; color:white; font-size: 10px;" href="javascript:void(0);" class="btn btn-xs btn-danger ' + classProductRemove + '">X</button></td>' +
+          '<td title="Cancelar producto" width="30px" height="30px" class="text-center" style="width: 30px;"><button style="background-color: red; color:white; font-size: 10px;" href="javascript:void(0);" class="btn btn-xs btn-danger ' + classProductRemove + '">X</button></td>' +
           '</tr>'
         );
       });

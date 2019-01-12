@@ -29,11 +29,11 @@
 					<!-- home content -->
 					<div class="col-md-10 col-md-offset-1">
 						<div class="home-content">
-							<h1 class="white-text">We Are Creative Agency</h1>
-							<p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
+							<h1 class="white-text">Bienvenido a Alex Piñero</h1>
+							<p class="white-text">Actualmente contamos con dos peluquería en las ciudades de San Fernando y Chiclana de la frontera.
 							</p>
-							<a href="<?php echo site_url() ?>Gestion/inicio"><img src="<?php echo base_url() ?>/assets/img/Home/image_1.jpg" alt="Go to W3Schools!" width="160" height="220" border="100"></img></a>
-							<a href="<?php echo site_url() ?>Gestion/inicio"><img src="<?php echo base_url() ?>/assets/img/Home/image_2.jpg" alt="Go to W3Schools!" width="160" height="220" border="100"></img></a>
+							<a href="<?php echo site_url() ?>Gestion/inicio"><img src="<?php echo base_url() ?>/assets/img/peluChiclana.jpg" alt="Go to W3Schools!" width="220" height="220" border="100"></img></a>
+							<a href="<?php echo site_url() ?>Gestion/inicio"><img src="<?php echo base_url() ?>/assets/img/peluSanfernando.jpg" alt="Go to W3Schools!" width="220" height="220" border="100"></img></a>
 						</div>
 					</div>
 

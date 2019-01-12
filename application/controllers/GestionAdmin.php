@@ -240,6 +240,19 @@
 	                $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
 	                $this->session->set_flashdata('statusMsg',$statusMsg);
 	            }
+
+	            $query = $this->db->get('Personal');
+	        $i = 1;
+			foreach ($query->result() as $row) 
+			{
+				$this->db->set('tipo', $i, TRUE);
+				$this->db->where('id', $row->id);
+				$this->db->update('Personal');
+				$i++;
+				
+			}
+
+
 	            redirect($this->uri->uri_string()); 
 	        }
 			
@@ -430,6 +443,126 @@
 	        
 	    }
 
+	    function Comentario()
+		{
+			if(isset($_GET))
+			{
+				$id = $_GET['publicacion'];
+			}
+
+			$this->db->get('Comentario');
+			$this->db->from('Comentario');
+			$this->db->where('id_publicaciones',$id);
+			$query = $this->db->get();
+			$data['comentario'] = $query->result();
+			foreach ($data['comentario'] as $row) {
+				$data['comentario'] = $row;
+			}
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Comentario',$data);
+		}
+
+		function EliminarComentario()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Comentario', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Comentario();
+			
+			
+			
+		}
+
+		function show_Comentario()
+		{
+
+			$id = $this->input->post("id");
+
+
+			$this->db->get('Comentario');
+			$this->db->from('Comentario');
+			$this->db->where('id_publicaciones',$id);
+			$query = $this->db->get();
+			$result = $query->result();
+			
+			
+			
+
+			echo json_encode($result);
+		}
+
+		function setComentario(){
+	        $data = array();
+
+
+	        // If file upload form submitted
+
+	        
+	    }
+
+
+
+
+
+	    //REDSOCIAL
+
+
+	    function RedSocial()
+		{
+			$this->output->delete_cache();
+				
+
+			$query = $this->db->get('Publicaciones');
+			$data['precio'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Publicaciones',$data);
+		}
+
+		
+
+		
+		
+		function EliminarRedSocial()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Publicaciones', array('id' => $id));
+			$this->db->delete('Comentario', array('id_publicaciones' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_RedSocial();
+			
+			
+			
+		}
+
+		function show_RedSocial()
+		{
+
+			$data = $this->db->get('Publicaciones');
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+		function setImageRedSocial(){
+	        $data = array();
+
+
+	        // If file upload form submitted
+
+	        
+	    }
+
 
 
 
@@ -504,6 +637,7 @@
 	             		$uploadData[$i]['precio'] = $this->input->post('precio');
 	             		$uploadData[$i]['stock'] = $this->input->post('stock');
 	                    $uploadData[$i]['nombre'] = $this->input->post('asunto');
+	                    $uploadData[$i]['valoracion'] = 3;
 	                }
 	            }
 	            
@@ -704,6 +838,7 @@
 	                    $uploadData['fecha'] = date("Y-m-d");
 	                    $uploadData['asunto'] = $this->input->post('asunto');
 	                    $uploadData['descripcion'] = $this->input->post('informacion');
+	                    $uploadData['imagen'] = $uploadData2[0]['imagen'];
 	                }
 	            }
 	            
@@ -830,6 +965,7 @@
                     $uploadData['fecha'] = date("Y-m-d");
                     $uploadData['asunto'] = $this->input->post('asunto');
                     $uploadData['descripcion'] = $this->input->post('informacion');
+                    
                 }
             }
             
@@ -891,6 +1027,46 @@
 		{
 
 			$data = $this->db->get('Cita');
+
+			$result = $data->result();
+			
+
+			echo json_encode($result);
+		}
+
+
+	///CONTACTO
+
+		function Contacto()
+		{
+			$this->output->delete_cache();
+
+			$query = $this->db->get('Contacto');
+			$data['contacto'] = $query->result();
+			
+			$this->load->view('Administrador/Head');
+			$this->load->view('Administrador/Contacto',$data);
+		}
+
+		function EliminarContacto()
+		{
+
+			$id = $this->input->post('id');
+			$this->db->delete('Contacto', array('id' => $id));
+			
+			$jsondata = array();
+			$jsondata['status'] = "success";			 
+			echo json_encode($jsondata);
+			show_Contacto();
+			
+			
+			
+		}
+
+		function show_Contacto()
+		{
+
+			$data = $this->db->get('Contacto');
 
 			$result = $data->result();
 			

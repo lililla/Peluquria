@@ -29,7 +29,7 @@
 <body>
 
 <div class="footer">
-  <a href="#"><i style="color:white;" class="fa fa-facebook fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i style="color:white;" class="fa fa-twitter fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i style="color:white;" class="fa fa-linkedin fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i style="color:white;" class="fa fa-github fa-2x"></i></a>&nbsp;&nbsp;
+  <a target="_blank" href="https://www.facebook.com/alex.pineropeluqueria"><i style="color:white;" class="fa fa-facebook fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://twitter.com/alexstyleformen?lang=es"><i style="color:white;" class="fa fa-twitter fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.instagram.com/apstyleformen/?hl=es"><i style="color:white;" class="fa fa-linkedin fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="https://www.google.com/search?ei=t5g3XNLWHdSZjLsP2aeA2AY&q=alex%20pi%C3%B1ero%20stylo%20for%20men&oq=alex+pi%C3%B1ero+st&gs_l=psy-ab.3.0.35i39.5802.8613..9890...0.0..1.751.4064.0j7j4j5-2j1......0....1..gws-wiz.......0i131j0j0i131i67j0i67j0i20i263j0i3j0i22i30j38.m-BukV6me4k&npsic=0&rflfq=1&rlha=0&rllag=36443480,-6173091,3347&tbm=lcl&rldimm=1169509217949407326&ved=2ahUKEwj25bTE9ePfAhXC1-AKHZ-HDwUQvS4wAXoECAAQKg&rldoc=1&tbs=lrf:!2m1!1e2!2m1!1e3!3sIAE,lf:1,lf_ui:2"><i style="color:white;" class="fa fa-github fa-2x"></i></a>&nbsp;&nbsp;
 </div>
 
 </body>

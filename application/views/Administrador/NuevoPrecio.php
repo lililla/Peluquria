@@ -41,7 +41,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default" style="border-color:#393e46;">
                         <div class="panel-heading" style="background-color:#393e46; color:#FFF; border-color:#393e46;">
-                            Basic Form Elements
+                            Formulario de precio
                         </div>
                         <p><?php echo $this->session->flashdata('statusMsg'); ?></p>
                         <div class="panel-body">
